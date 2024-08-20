@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--点滅させるアニメーションです。-->
+
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <objectAnimator
+        android:propertyName="alpha"
+        android:duration="500"
+        android:valueTo="0.2f"
+        android:repeatCount="-1"
+        android:repeatMode="reverse"/>
+</set>
