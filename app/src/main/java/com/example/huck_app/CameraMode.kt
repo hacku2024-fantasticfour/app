@@ -1,5 +1,6 @@
 package com.example.huck_app
 
+import android.content.Intent
 import android.Manifest
 import android.content.ContentValues
 import android.content.pm.PackageManager
@@ -107,6 +108,26 @@ class CameraMode : AppCompatActivity() {
                     val msg = "Photo capture succeeded: $savedUri"
                     Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
                     Log.d(TAG, msg)
+
+                    val buttonId = intent.getIntExtra("BUTTON_ID", -1)
+                    if(buttonId == R.id.Child_button) {
+                        val intent = Intent(this@CameraMode, ChildMode::class.java).apply {
+                            putExtra("image_uri", savedUri.toString())
+                        }
+                        startActivity(intent)
+                    }
+                    else if(buttonId == R.id.Elderly_button) {
+                        val intent = Intent(this@CameraMode, ElderlyMode::class.java).apply {
+                            putExtra("image_uri", savedUri.toString())
+                        }
+                        startActivity(intent)
+                    }
+                    else if(buttonId == R.id.Earth_button) {
+                        val intent = Intent(this@CameraMode, EarthquakeMode::class.java).apply {
+                            putExtra("image_uri", savedUri.toString())
+                        }
+                        startActivity(intent)
+                    }
 
 //                    val intent = Intent(this@MainActivity, MainActivity2::class.java).apply {
 //                        putExtra("image_uri", savedUri.toString())

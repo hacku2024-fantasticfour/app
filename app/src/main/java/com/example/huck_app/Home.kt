@@ -23,21 +23,27 @@ class Home : AppCompatActivity() {
         // 子供モードボタンを押したら ChildMode に遷移
         val childButton = findViewById<ImageButton>(R.id.Child_button)
         childButton.setOnClickListener {
-            val intent = Intent(this, ChildMode::class.java)
+            val intent = Intent(this, CameraMode::class.java).apply {
+                intent.putExtra("BUTTON_ID", R.id.Child_button)
+            }
             startActivity(intent)
         }
 
         // 高齢者モードボタンを押したら ElderlyMode に遷移
         val elderlyButton = findViewById<ImageButton>(R.id.Elderly_button)
         elderlyButton.setOnClickListener {
-            val intent = Intent(this, ElderlyMode::class.java)
+            val intent = Intent(this, CameraMode::class.java).apply {
+                intent.putExtra("BUTTON_ID", R.id.Elderly_button)
+            }
             startActivity(intent)
         }
 
         // 地震防災モードボタンを押したら EarthquakeMode に遷移
         val earthButton = findViewById<ImageButton>(R.id.Earth_button)
         earthButton.setOnClickListener {
-            val intent = Intent(this, EarthquakeMode::class.java)
+            val intent = Intent(this, CameraMode::class.java).apply {
+                intent.putExtra("BUTTON_ID", R.id.Earth_button)
+            }
             startActivity(intent)
         }
     }

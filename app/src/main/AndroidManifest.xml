@@ -2,6 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature android:name="android.hardware.camera.any" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,9 +21,6 @@
         android:theme="@style/Theme.Huck_app"
         tools:targetApi="31">
         <activity
-            android:name=".CameraMode"
-            android:exported="false" />
-        <activity
             android:name=".EarthquakeMode"
             android:exported="false"
             android:theme="@style/Theme.Huck_app" />
@@ -25,6 +30,12 @@
         <activity
             android:name=".ChildMode"
             android:exported="false" />
+
+        <activity
+            android:name=".CameraMode"
+            android:exported="false"
+            android:theme="@style/Theme.Camera" />
+
         <activity
             android:name=".Home"
             android:exported="false"
