@@ -1,28 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/navi_home">
 
-    <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.huck_app.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first" >
+    <fragment android:id="@+id/navi_home"
+        android:name="com.example.hack_app.Activity"
+        android:label="Home"/>
 
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.huck_app.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second" >
+    <fragment android:id="@+id/navi_child"
+        android:name="com.example.bottom_navigation_test."
+        android:label="Child"/>
 
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
+    <fragment android:id="@+id/navi_elder"
+        android:name="com.example.bottom_navigation_test.Fragment3"
+        android:label="Elder"/>
+
+    <fragment android:id="@+id/navi_earth"
+        android:name="com.example."
+        android:label="Earth"/>
 </navigation>

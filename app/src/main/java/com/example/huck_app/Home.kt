@@ -2,11 +2,13 @@ package com.example.huck_app
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import android.widget.ImageButton
+import android.view.Menu
+import android.view.MenuItem
 
 class Home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,26 +21,12 @@ class Home : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        // 子供モードボタンを押したら ChildMode に遷移
-        val childButton = findViewById<ImageButton>(R.id.Child_button)
-        childButton.setOnClickListener {
-            val intent = Intent(this, ChildMode::class.java)
-            startActivity(intent)
-        }
-
-        // 高齢者モードボタンを押したら ElderlyMode に遷移
-        val elderlyButton = findViewById<ImageButton>(R.id.Elderly_button)
-        elderlyButton.setOnClickListener {
-            val intent = Intent(this, ElderlyMode::class.java)
-            startActivity(intent)
-        }
-
-        // 地震防災モードボタンを押したら EarthquakeMode に遷移
-        val earthButton = findViewById<ImageButton>(R.id.Earth_button)
-        earthButton.setOnClickListener {
-            val intent = Intent(this, EarthquakeMode::class.java)
-            startActivity(intent)
-        }
     }
+
+    // メニューをアクティビティにインフレートする
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.bottom_navigation_menu, menu)
+        return true
+    }
+
 }
