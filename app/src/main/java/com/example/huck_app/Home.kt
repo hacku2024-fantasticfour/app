@@ -24,7 +24,7 @@ class Home : AppCompatActivity() {
         val childButton = findViewById<ImageButton>(R.id.Child_button)
         childButton.setOnClickListener {
             val intent = Intent(this, CameraMode::class.java).apply {
-                intent.putExtra("BUTTON_ID", R.id.Child_button)
+                putExtra("BUTTON_ID", R.id.Child_button)
             }
             startActivity(intent)
         }
@@ -33,7 +33,7 @@ class Home : AppCompatActivity() {
         val elderlyButton = findViewById<ImageButton>(R.id.Elderly_button)
         elderlyButton.setOnClickListener {
             val intent = Intent(this, CameraMode::class.java).apply {
-                intent.putExtra("BUTTON_ID", R.id.Elderly_button)
+                putExtra("BUTTON_ID", R.id.Elderly_button)
             }
             startActivity(intent)
         }
@@ -42,7 +42,7 @@ class Home : AppCompatActivity() {
         val earthButton = findViewById<ImageButton>(R.id.Earth_button)
         earthButton.setOnClickListener {
             val intent = Intent(this, CameraMode::class.java).apply {
-                intent.putExtra("BUTTON_ID", R.id.Earth_button)
+                putExtra("BUTTON_ID", R.id.Earth_button)
             }
             startActivity(intent)
         }

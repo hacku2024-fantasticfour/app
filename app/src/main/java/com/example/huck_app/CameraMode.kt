@@ -110,6 +110,8 @@ class CameraMode : AppCompatActivity() {
                     Log.d(TAG, msg)
 
                     val buttonId = intent.getIntExtra("BUTTON_ID", -1)
+                    Log.d(TAG, "Button ID: $buttonId")
+
                     if(buttonId == R.id.Child_button) {
                         val intent = Intent(this@CameraMode, ChildMode::class.java).apply {
                             putExtra("image_uri", savedUri.toString())
@@ -128,11 +130,6 @@ class CameraMode : AppCompatActivity() {
                         }
                         startActivity(intent)
                     }
-
-//                    val intent = Intent(this@MainActivity, MainActivity2::class.java).apply {
-//                        putExtra("image_uri", savedUri.toString())
-//                    }
-//                    startActivity(intent)
                 }
             }
         )
