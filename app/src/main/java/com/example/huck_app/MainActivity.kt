@@ -1,47 +1,37 @@
 package com.example.huck_app
 
+import android.animation.Animator
+import android.animation.AnimatorInflater
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.huck_app.ui.theme.Huck_appTheme
+import androidx.appcompat.app.AppCompatActivity
+import com.example.huck_app.databinding.ActivityMainBinding
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var set: Animator
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            Huck_appTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+        binding = ActivityMainBinding.inflate(layoutInflater).apply {
+            setContentView(this.root)
+        }
+
+        // アニメーションの読み込みとターゲットの設定
+        set = AnimatorInflater.loadAnimator(this, R.animator.blink_animation).apply {
+            setTarget(binding.TapText)
+        }
+
+        // タップイベントの設定
+        binding.root.setOnClickListener {
+            val intent = Intent(this, Home::class.java)
+            startActivity(intent)
         }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    Huck_appTheme {
-        Greeting("Android")
+    override fun onStart() {
+        super.onStart()
+        // アニメーションの開始
+        set.start()
     }
 }
