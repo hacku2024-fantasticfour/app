@@ -73,4 +73,12 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // MaterialComponentsのBottomNavigationを使うため
+    implementation ("com.google.android.material:material:1.1.0-alpha06")
+
+    // Navigationを使うため
+    def nav_version = '2.0.0'
+    implementation ("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation ("androidx.navigation:navigation-ui-ktx:$nav_version")
 }
