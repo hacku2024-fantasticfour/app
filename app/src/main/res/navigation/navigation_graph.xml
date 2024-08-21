@@ -4,18 +4,18 @@
     app:startDestination="@id/navi_home">
 
     <fragment android:id="@+id/navi_home"
-        android:name="com.example.hack_app.Activity"
-        android:label="Home"/>
+        android:name="com.example.huck_app.Home"
+        android:label="Fragment1"/>
 
     <fragment android:id="@+id/navi_child"
-        android:name="com.example.bottom_navigation_test."
-        android:label="Child"/>
+        android:name="com.example.huck_app.ChildMode"
+        android:label="Fragment2"/>
 
     <fragment android:id="@+id/navi_elder"
-        android:name="com.example.huck_app.Fragment3"
-        android:label="Elder"/>
+        android:name="com.example.huck_app.ElderlyMode"
+        android:label="Fragment3"/>
 
     <fragment android:id="@+id/navi_earth"
-        android:name="com.example."
-        android:label="Earth"/>
+        android:name="com.example.huck_app.EarthquakeMode"
+        android:label="Fragment4"/>
 </navigation>

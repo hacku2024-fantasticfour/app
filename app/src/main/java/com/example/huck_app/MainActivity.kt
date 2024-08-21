@@ -1,11 +1,14 @@
 package com.example.huck_app
 
+
 import android.animation.Animator
 import android.animation.AnimatorInflater
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.huck_app.databinding.ActivityMainBinding
+
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -24,8 +27,9 @@ class MainActivity : AppCompatActivity() {
 
         // タップイベントの設定
         binding.root.setOnClickListener {
-            val intent = Intent(this, Home::class.java)
+            val intent = Intent(this, BaseActivity::class.java)
             startActivity(intent)
+
         }
     }
 
