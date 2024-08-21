@@ -27,7 +27,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ElderlyMode : AppCompatActivity() {
+class ElderlyMode : AppCompatActivity(), Detector.DetectorListener {
     private var image by mutableStateOf<Bitmap?>(null)
     private lateinit var detector: Detector
     private val MODEL_PATH = "yolov8s_float32.tflite"
@@ -39,12 +39,12 @@ class ElderlyMode : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_elderly_mode)
 
-//        val composeView = findViewById<ComposeView>(R.id.compose_view)
-//        composeView.setContent {
-//            Huck_appTheme {
-//                ElderlyImage(bitmap = image)
-//            }
-//        }
+        val composeView = findViewById<ComposeView>(R.id.compose_view)
+        composeView.setContent {
+            Huck_appTheme {
+                ElderlyImage(bitmap = image)
+            }
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -52,65 +52,65 @@ class ElderlyMode : AppCompatActivity() {
             insets
         }
 
-//        val imageUri = intent.getStringExtra("image_uri")
-//        if(imageUri != null) {
-//            val inputStream = contentResolver.openInputStream(Uri.parse(imageUri))
-//            image = BitmapFactory.decodeStream(inputStream)
-//            inputStream?.close()
-//
-//            detector = Detector(baseContext, MODEL_PATH, LABELS_PATH, this)
-//            detector.setup()
-//            image?.let {
-//                detector.detect(it)
-//            }
-//        }
-//    }
-//
-//    fun onDetect(boundingBoxes: List<BoundingBox>) {
-//        image?.let { bmp ->
-//            processingScope.launch {
-//                val updatedBitmap = drawBoundingBoxes(bmp, boundingBoxes)
-//                image = updatedBitmap
-//            }
-//        }
-//    }
-//
-//    fun onEmptyDetect() {
-//        Log.i("empty", "empty")
-//    }
-//
-//    fun drawBoundingBoxes(bitmap: Bitmap, boxes: List<BoundingBox>): Bitmap {
-//        val mutableBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
-//        val canvas = Canvas(mutableBitmap)
-//        val paint = Paint().apply {
-//            color = Color.MAGENTA
-//            style = Paint.Style.STROKE
-//            strokeWidth = 8f
-//        }
-//        val textPaint = Paint().apply {
-//            color = Color.rgb(0,255,0)
-//            textSize = 80f
-//            typeface = Typeface.DEFAULT_BOLD
-//        }
-//
-//        for (box in boxes) {
-//            val rect = RectF(
-//                box.x1 * mutableBitmap.width,
-//                box.y1 * mutableBitmap.height,
-//                box.x2 * mutableBitmap.width,
-//                box.y2 * mutableBitmap.height
-//            )
-//            canvas.drawRect(rect, paint)
-//            canvas.drawText(box.clsName, rect.left, rect.bottom, textPaint)
-//        }
-//
-//        return mutableBitmap
-//    }
-//}
-//
-//@Composable
-//fun ElderlyImage(bitmap: Bitmap?) {
-//    bitmap?.let {
-//        Image(bitmap = it.asImageBitmap(), contentDescription = "Description of the image")
+        val imageUri = intent.getStringExtra("image_uri")
+        if(imageUri != null) {
+            val inputStream = contentResolver.openInputStream(Uri.parse(imageUri))
+            image = BitmapFactory.decodeStream(inputStream)
+            inputStream?.close()
+
+            detector = Detector(baseContext, MODEL_PATH, LABELS_PATH, this)
+            detector.setup()
+            image?.let {
+                detector.detect(it)
+            }
+        }
+    }
+
+    override fun onDetect(boundingBoxes: List<BoundingBox>) {
+        image?.let { bmp ->
+            processingScope.launch {
+                val updatedBitmap = drawBoundingBoxes(bmp, boundingBoxes)
+                image = updatedBitmap
+            }
+        }
+    }
+
+    override fun onEmptyDetect() {
+        Log.i("empty", "empty")
+    }
+
+    fun drawBoundingBoxes(bitmap: Bitmap, boxes: List<BoundingBox>): Bitmap {
+        val mutableBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
+        val canvas = Canvas(mutableBitmap)
+        val paint = Paint().apply {
+            color = Color.MAGENTA
+            style = Paint.Style.STROKE
+            strokeWidth = 8f
+        }
+        val textPaint = Paint().apply {
+            color = Color.rgb(0,255,0)
+            textSize = 80f
+            typeface = Typeface.DEFAULT_BOLD
+        }
+
+        for (box in boxes) {
+            val rect = RectF(
+                box.x1 * mutableBitmap.width,
+                box.y1 * mutableBitmap.height,
+                box.x2 * mutableBitmap.width,
+                box.y2 * mutableBitmap.height
+            )
+            canvas.drawRect(rect, paint)
+            canvas.drawText(box.clsName, rect.left, rect.bottom, textPaint)
+        }
+
+        return mutableBitmap
+    }
+}
+
+@Composable
+fun ElderlyImage(bitmap: Bitmap?) {
+    bitmap?.let {
+        Image(bitmap = it.asImageBitmap(), contentDescription = "Description of the image")
     }
 }

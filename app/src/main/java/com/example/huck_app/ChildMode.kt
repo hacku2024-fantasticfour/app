@@ -28,7 +28,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class ChildMode : AppCompatActivity() {
+class ChildMode : AppCompatActivity(), Detector.DetectorListener {
     private var image by mutableStateOf<Bitmap?>(null)
     private lateinit var detector: Detector
     private val MODEL_PATH = "yolov8s_float32.tflite"
@@ -67,7 +67,7 @@ class ChildMode : AppCompatActivity() {
         }
     }
 
-    fun onDetect(boundingBoxes: List<BoundingBox>) {
+    override fun onDetect(boundingBoxes: List<BoundingBox>) {
         image?.let { bmp ->
             processingScope.launch {
                 val updatedBitmap = drawBoundingBoxes(bmp, boundingBoxes)
@@ -76,7 +76,7 @@ class ChildMode : AppCompatActivity() {
         }
     }
 
-    fun onEmptyDetect() {
+    override fun onEmptyDetect() {
         Log.i("empty", "empty")
     }
 

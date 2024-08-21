@@ -20,7 +20,7 @@ class Detector(
     private val context: Context,
     private val modelPath: String,
     private val labelPath: String,
-    private val detectorListener: ChildMode
+    private val detectorListener: DetectorListener
 ) {
     private var interpreter: Interpreter? = null
 
