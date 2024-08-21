@@ -7,7 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="earth_icon_background">#FF0000</color> <!-- 適切な色コードに変更 -->
-    <color name="ic_launcher_background">#00FF00</color> <!-- 適切な色コードに変更 -->
-    <color name="yolo_img_background">#0000FF</color> <!-- 適切な色コードに変更 -->
+    <color name="yellow">#FFFF00</color> <!-- 黄色を追加 -->
+    <color name="green">#00FF00</color> <!-- 緑 -->
+    <color name="pink">#FFC0CB</color> <!-- ピンク -->
+    <color name="ic_launcher_background">#00FF00</color> <!-- ランチャーバックグラウンドの色 -->
+    <color name="selected_color">#3cb381</color> <!-- 選択時は赤 -->
+    <color name="unselected_color">#2f4f4f</color> <!-- 非選択時は黒 -->
 </resources>

@@ -28,7 +28,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class ChildMode : AppCompatActivity(), Detector.DetectorListener {
+class ChildMode : BaseActivity(), Detector.DetectorListener {
     private var image by mutableStateOf<Bitmap?>(null)
     private lateinit var detector: Detector
     private val MODEL_PATH = "yolov8s_float32.tflite"

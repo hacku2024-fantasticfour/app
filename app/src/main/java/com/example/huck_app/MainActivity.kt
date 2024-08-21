@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         // タップイベントの設定
         binding.root.setOnClickListener {
-            val intent = Intent(this, Home::class.java)
+            val intent = Intent(this, BaseActivity::class.java)
             startActivity(intent)
         }
     }

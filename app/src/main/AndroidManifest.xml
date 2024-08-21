@@ -20,6 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Huck_app"
         tools:targetApi="31">
+        <activity android:name=".BaseActivity" />
         <activity
             android:name=".EarthquakeMode"
             android:exported="false"

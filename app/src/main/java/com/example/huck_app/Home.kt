@@ -2,11 +2,12 @@ package com.example.huck_app
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import android.widget.ImageButton
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class Home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

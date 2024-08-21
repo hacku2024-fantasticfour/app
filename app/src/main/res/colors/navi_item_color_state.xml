@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--アイコンが押されたとき、押されてない時の色指定です。-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:color="@color/selected_color" />
+    <item android:state_checked="false" android:color="@color/unselected_color" />
+</selector>

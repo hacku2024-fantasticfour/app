@@ -1,0 +1,21 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/navi_home">
+
+    <fragment android:id="@+id/navi_home"
+        android:name="com.example.huck_app.HomeFragment"
+        android:label="Fragment1"/>
+
+    <fragment android:id="@+id/navi_child"
+        android:name="com.example.huck_app.ChildFragment"
+        android:label="Fragment2"/>
+
+    <fragment android:id="@+id/navi_elder"
+        android:name="com.example.huck_app.ElderlyFragment"
+        android:label="Fragment3"/>
+
+    <fragment android:id="@+id/navi_earth"
+        android:name="com.example.huck_app.EarthquakeFragment"
+        android:label="Fragment4"/>
+</navigation>
