@@ -54,7 +54,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -78,14 +77,14 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     // tensorflow
-    implementation("org.tensorflow:tensorflow-lite:2.14.0")
-    implementation("org.tensorflow:tensorflow-lite-support:0.4.4")
+    implementation(libs.tensorflow.lite)
+    implementation(libs.tensorflow.lite.support)
 
     // camera libraries
-    implementation ("androidx.camera:camera-core:1.1.0-beta01")
-    implementation ("androidx.camera:camera-camera2:1.1.0-beta01")
-    implementation ("androidx.camera:camera-lifecycle:1.1.0-beta01")
-    implementation ("androidx.camera:camera-video:1.1.0-beta01")
-    implementation ("androidx.camera:camera-view:1.1.0-beta01" )
-    implementation ("androidx.camera:camera-extensions:1.1.0-beta01")
+    implementation (libs.androidx.camera.core)
+    implementation (libs.androidx.camera.camera2)
+    implementation (libs.androidx.camera.lifecycle)
+    implementation (libs.androidx.camera.video)
+    implementation (libs.androidx.camera.view )
+    implementation (libs.androidx.camera.extensions)
 }
