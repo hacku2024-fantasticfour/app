@@ -7,15 +7,12 @@
         android:name="com.example.huck_app.HomeFragment"
         android:label="Fragment1"/>
 
-    <fragment android:id="@+id/navi_child"
-        android:name="com.example.huck_app.ChildFragment"
+    <fragment android:id="@+id/navi_image"
+        android:name="com.example.huck_app.ImageFragment"
         android:label="Fragment2"/>
 
-    <fragment android:id="@+id/navi_elder"
-        android:name="com.example.huck_app.ElderlyFragment"
+    <fragment android:id="@+id/navi_video"
+        android:name="com.example.huck_app.VideoFragment"
         android:label="Fragment3"/>
 
-    <fragment android:id="@+id/navi_earth"
-        android:name="com.example.huck_app.EarthquakeFragment"
-        android:label="Fragment4"/>
 </navigation>

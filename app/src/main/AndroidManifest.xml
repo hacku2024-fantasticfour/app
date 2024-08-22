@@ -21,6 +21,9 @@
         android:theme="@style/Theme.Huck_app"
         tools:targetApi="31">
         <activity
+            android:name=".ExplaintextActivity"
+            android:exported="false" />
+        <activity
             android:name=".ShareActivity"
             android:exported="false"
             android:theme="@style/Theme.Huck_app" />

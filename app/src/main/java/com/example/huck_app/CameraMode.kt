@@ -117,18 +117,7 @@ class CameraMode : AppCompatActivity() {
                             putExtra("image_uri", savedUri.toString())
                         }
                         startActivity(intent)
-                    }
-                    else if(buttonId == R.id.Elderly_button) {
-                        val intent = Intent(this@CameraMode, ElderlyMode::class.java).apply {
-                            putExtra("image_uri", savedUri.toString())
-                        }
-                        startActivity(intent)
-                    }
-                    else if(buttonId == R.id.Earth_button) {
-                        val intent = Intent(this@CameraMode, EarthquakeMode::class.java).apply {
-                            putExtra("image_uri", savedUri.toString())
-                        }
-                        startActivity(intent)
+
                     }
                 }
             }

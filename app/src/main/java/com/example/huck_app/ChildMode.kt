@@ -1,10 +1,11 @@
 package com.example.huck_app
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
@@ -14,6 +15,8 @@ import android.graphics.RectF
 import android.graphics.Typeface
 import android.net.Uri
 import android.util.Log
+import android.view.MotionEvent
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
@@ -27,14 +30,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
 class ChildMode : AppCompatActivity(), Detector.DetectorListener {
     private var image by mutableStateOf<Bitmap?>(null)
     private lateinit var detector: Detector
     private val MODEL_PATH = "yolov8s_float32.tflite"
     private val LABELS_PATH = "labels.txt"
-    private val processingScope = CoroutineScope(Dispatchers.IO)  // IOスレッドで実行
+    private val processingScope = CoroutineScope(Dispatchers.IO)
+    private var boundingBoxes: List<BoundingBox> = emptyList() // 検出されたバウンディングボックスを保持するリスト
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -43,7 +47,7 @@ class ChildMode : AppCompatActivity(), Detector.DetectorListener {
         val composeView = findViewById<ComposeView>(R.id.compose_view)
         composeView.setContent {
             Huck_appTheme {
-                CHildImage(bitmap = image)
+                ChildImage(bitmap = image)
             }
         }
 
@@ -54,7 +58,7 @@ class ChildMode : AppCompatActivity(), Detector.DetectorListener {
         }
 
         val imageUri = intent.getStringExtra("image_uri")
-        if(imageUri != null) {
+        if (imageUri != null) {
             val inputStream = contentResolver.openInputStream(Uri.parse(imageUri))
             image = BitmapFactory.decodeStream(inputStream)
             inputStream?.close()
@@ -65,9 +69,32 @@ class ChildMode : AppCompatActivity(), Detector.DetectorListener {
                 detector.detect(it)
             }
         }
+
+        // タッチイベントの設定
+        composeView.setOnTouchListener { view, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                val x = event.x * (image?.width ?: 1) / view.width
+                val y = event.y * (image?.height ?: 1) / view.height
+                boundingBoxes.firstOrNull { box ->
+                    val rect = RectF(
+                        box.x1 * (image?.width ?: 1),
+                        box.y1 * (image?.height ?: 1),
+                        box.x2 * (image?.width ?: 1),
+                        box.y2 * (image?.height ?: 1)
+                    )
+                    rect.contains(x, y)
+                }?.let { box ->
+                    Log.i("BoundingBoxTapped", "Tapped on: ${box.clsName}")
+                    navigateToExplaintextActivity(box.clsName)
+                }
+            }
+            true
+        }
+
     }
 
     override fun onDetect(boundingBoxes: List<BoundingBox>) {
+        this.boundingBoxes = boundingBoxes // 検出されたバウンディングボックスを保存
         image?.let { bmp ->
             processingScope.launch {
                 val updatedBitmap = drawBoundingBoxes(bmp, boundingBoxes)
@@ -89,7 +116,7 @@ class ChildMode : AppCompatActivity(), Detector.DetectorListener {
             strokeWidth = 8f
         }
         val textPaint = Paint().apply {
-            color = Color.rgb(0,255,0)
+            color = Color.rgb(0, 255, 0)
             textSize = 80f
             typeface = Typeface.DEFAULT_BOLD
         }
@@ -107,10 +134,18 @@ class ChildMode : AppCompatActivity(), Detector.DetectorListener {
 
         return mutableBitmap
     }
+
+    // ExplaintextActivity へ遷移するメソッド
+    private fun navigateToExplaintextActivity(label: String) {
+        val intent = Intent(this, ExplaintextActivity::class.java).apply {
+            putExtra("label", label)  // ラベルをIntentに追加
+        }
+        startActivity(intent)
+    }
 }
 
 @Composable
-fun CHildImage(bitmap: Bitmap?) {
+fun ChildImage(bitmap: Bitmap?) {
     bitmap?.let {
         Image(bitmap = it.asImageBitmap(), contentDescription = "Description of the image")
     }

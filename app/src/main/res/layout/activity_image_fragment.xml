@@ -7,7 +7,7 @@
     android:background="#CEADD7">
 
     <Button
-        android:id="@+id/Child_button"
+        android:id="@+id/image_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="136dp"
