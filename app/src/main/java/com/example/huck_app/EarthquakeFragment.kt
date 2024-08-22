@@ -18,7 +18,7 @@ class EarthquakeFragment : Fragment() {
 
         val childButton = view.findViewById<Button>(R.id.Earth_button)
         childButton.setOnClickListener {
-            // ChildModeに移行
+
             val intent = Intent(activity, CameraMode::class.java)
             intent.putExtra("BUTTON_ID", R.id.Earth_button)
             startActivity(intent)

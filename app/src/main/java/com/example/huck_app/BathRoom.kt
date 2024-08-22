@@ -27,7 +27,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ElderlyMode : AppCompatActivity(), Detector.DetectorListener {
+class BathRoom : AppCompatActivity(), Detector.DetectorListener {
     private var image by mutableStateOf<Bitmap?>(null)
     private lateinit var detector: Detector
     private val MODEL_PATH = "yolov8s_float32.tflite"
@@ -37,12 +37,12 @@ class ElderlyMode : AppCompatActivity(), Detector.DetectorListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_elderly_mode)
+        setContentView(R.layout.activity_bath_room)
 
-        val composeView = findViewById<ComposeView>(R.id.compose_view)
+        val composeView = findViewById<ComposeView>(R.id.compose_view2)
         composeView.setContent {
             Huck_appTheme {
-                ElderlyImage(bitmap = image)
+                BathRoomImage(bitmap = image)
             }
         }
 
@@ -109,7 +109,7 @@ class ElderlyMode : AppCompatActivity(), Detector.DetectorListener {
 }
 
 @Composable
-fun ElderlyImage(bitmap: Bitmap?) {
+fun BathRoomImage(bitmap: Bitmap?) {
     bitmap?.let {
         Image(bitmap = it.asImageBitmap(), contentDescription = "Description of the image")
     }

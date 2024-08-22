@@ -16,11 +16,27 @@ class ElderlyFragment : Fragment() {
         val view = inflater.inflate(R.layout.activity_elderly_fragment, container, false)
 
 
-        val childButton = view.findViewById<Button>(R.id.Elderly_button)
-        childButton.setOnClickListener {
-            // ChildModeに移行
+        val Lv = view.findViewById<Button>(R.id.Elderly_living)
+        Lv.setOnClickListener {
+
             val intent = Intent(activity, CameraMode::class.java)
-            intent.putExtra("BUTTON_ID", R.id.Elderly_button)
+            intent.putExtra("BUTTON_ID", R.id.Elderly_living)
+            startActivity(intent)
+
+        }
+        val Bath = view.findViewById<Button>(R.id.Elderly_bathroom)
+        Bath.setOnClickListener {
+
+            val intent = Intent(activity, CameraMode::class.java)
+            intent.putExtra("BUTTON_ID", R.id.Elderly_bathroom)
+            startActivity(intent)
+        }
+
+        val Hw = view.findViewById<Button>(R.id.Elderly_hollway)
+        Hw.setOnClickListener {
+
+            val intent = Intent(activity, CameraMode::class.java)
+            intent.putExtra("BUTTON_ID", R.id.Elderly_hollway)
             startActivity(intent)
         }
 
