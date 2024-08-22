@@ -28,7 +28,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class ChildMode : BaseActivity(), Detector.DetectorListener {
+class ChildMode : AppCompatActivity(), Detector.DetectorListener {
     private var image by mutableStateOf<Bitmap?>(null)
     private lateinit var detector: Detector
     private val MODEL_PATH = "yolov8s_float32.tflite"
@@ -39,9 +39,9 @@ class ChildMode : BaseActivity(), Detector.DetectorListener {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_child_mode)
-        
+
         val composeView = findViewById<ComposeView>(R.id.compose_view)
-        composeView.setContent { 
+        composeView.setContent {
             Huck_appTheme {
                 CHildImage(bitmap = image)
             }
