@@ -1,7 +1,9 @@
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.net.Uri
 import android.os.Build
+import com.example.huck_app.R
 
 class Notification : Application() {
 
@@ -17,8 +19,12 @@ class Notification : Application() {
             val channelDescription = "ユーザーに重要な通知を提供するためのチャンネル"
             val importance = NotificationManager.IMPORTANCE_HIGH
 
+            // カスタムサウンドのURIを設定
+            val soundUri = Uri.parse("android.resource://" + packageName + "/" + R.raw.custom_sound)
+
             val channel = NotificationChannel(channelId, channelName, importance).apply {
                 description = channelDescription
+                setSound(soundUri, null)  // サウンドを設定
             }
 
             // 通知チャンネルをシステムに登録

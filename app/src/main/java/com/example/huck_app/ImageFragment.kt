@@ -20,7 +20,7 @@ class ImageFragment : Fragment() {
         childButton.setOnClickListener {
             // ChildModeに移行
             val intent = Intent(activity, CameraMode::class.java)
-            intent.putExtra("BUTTON_ID", R.id.Child_button)
+            intent.putExtra("BUTTON_ID", R.id.image_button)
             startActivity(intent)
         }
 
