@@ -38,7 +38,7 @@ class ChildMode : AppCompatActivity(), Detector.DetectorListener {
     private val MODEL_PATH = "yolov8s_float32.tflite"
     private val LABELS_PATH = "labels.txt"
     private val processingScope = CoroutineScope(Dispatchers.IO)
-    private var boundingBoxes: List<BoundingBox> = emptyList() // 検出されたバウンディングボックスを保持するリスト
+    private var boundingBoxes: List<BoundingBox> = emptyList()
 
     private val REQUEST_CODE_POST_NOTIFICATIONS = 1001
 
@@ -48,9 +48,8 @@ class ChildMode : AppCompatActivity(), Detector.DetectorListener {
         enableEdgeToEdge()
         setContentView(R.layout.activity_child_mode)
 
-        createNotificationChannel() // 通知チャンネルを作成
+        createNotificationChannel()
 
-        // 通知権限をリクエスト
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), REQUEST_CODE_POST_NOTIFICATIONS)
         }
@@ -81,7 +80,6 @@ class ChildMode : AppCompatActivity(), Detector.DetectorListener {
             }
         }
 
-        // タッチイベントの設定
         composeView.setOnTouchListener { view, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 val x = event.x * (image?.width ?: 1) / view.width
@@ -104,7 +102,7 @@ class ChildMode : AppCompatActivity(), Detector.DetectorListener {
     }
 
     override fun onDetect(boundingBoxes: List<BoundingBox>) {
-        this.boundingBoxes = boundingBoxes // 検出されたバウンディングボックスを保存
+        this.boundingBoxes = boundingBoxes
         image?.let { bmp ->
             processingScope.launch {
                 val updatedBitmap = drawBoundingBoxes(bmp, boundingBoxes)
@@ -112,7 +110,6 @@ class ChildMode : AppCompatActivity(), Detector.DetectorListener {
             }
         }
 
-        // 最初に検出されたラベルを取得して通知を表示
         if (boundingBoxes.isNotEmpty()) {
             val firstLabel = boundingBoxes.first().clsName
             showNotification("検出結果", "”$firstLabel”を検出しました")
@@ -127,9 +124,8 @@ class ChildMode : AppCompatActivity(), Detector.DetectorListener {
         val mutableBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
         val canvas = Canvas(mutableBitmap)
         val paint = Paint().apply {
-            color = Color.MAGENTA
             style = Paint.Style.STROKE
-            strokeWidth = 8f
+            strokeWidth = 20f
         }
         val textPaint = Paint().apply {
             color = Color.rgb(0, 255, 0)
@@ -138,6 +134,7 @@ class ChildMode : AppCompatActivity(), Detector.DetectorListener {
         }
 
         for (box in boxes) {
+            paint.color = getColorForLabel(box.clsName) // ラベルに基づいて色を設定
             val rect = RectF(
                 box.x1 * mutableBitmap.width,
                 box.y1 * mutableBitmap.height,
@@ -151,14 +148,21 @@ class ChildMode : AppCompatActivity(), Detector.DetectorListener {
         return mutableBitmap
     }
 
+//    ここで、危険度別の色を帰る予定です
+    private fun getColorForLabel(label: String): Int {
+        return when (label) {
+            "bottle" -> Color.RED
+            else -> Color.GREEN // デフォルトの色
+        }
+    }
+
     private fun navigateToExplaintextActivity(label: String) {
         val intent = Intent(this, ExplaintextActivity::class.java).apply {
-            putExtra("label", label)  // ラベルをIntentに追加
+            putExtra("label", label)
         }
         startActivity(intent)
     }
 
-    // 通知チャンネルを作成するメソッド
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channelId = "important_notifications"
@@ -176,13 +180,10 @@ class ChildMode : AppCompatActivity(), Detector.DetectorListener {
         }
     }
 
-    // 通知を表示するメソッド
     private fun showNotification(title: String, content: String) {
-        // POST_NOTIFICATIONS権限が付与されているかを確認
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
-            // 権限が付与されている場合にのみ通知を表示
             val notificationBuilder = NotificationCompat.Builder(this, "important_notifications")
-                .setSmallIcon(R.drawable.notification_icon) // 通知アイコンを適切なものに置き換える
+                .setSmallIcon(R.drawable.notification_icon)
                 .setContentTitle(title)
                 .setContentText(content)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -191,7 +192,6 @@ class ChildMode : AppCompatActivity(), Detector.DetectorListener {
                 notify(1, notificationBuilder.build())
             }
         } else {
-            // 権限がない場合、適切に処理を行う
             Log.w("Notification", "POST_NOTIFICATIONS permission is not granted.")
         }
     }
