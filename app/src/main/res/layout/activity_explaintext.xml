@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E6E3C8"
     tools:context=".ExplaintextActivity">
 
     <!-- ScrollViewでスクロール可能にする -->
@@ -13,10 +14,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <!-- ScrollView 内で制約を設定するために ConstraintLayout を使用 -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,27 +25,69 @@
             android:layout_height="wrap_content"
             android:padding="16dp">
 
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="332dp"
+                android:layout_height="60dp"
+                android:background="#D3BABA"
+                android:backgroundTint="#F1F4ED"
+                app:cardCornerRadius="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.34"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="335dp"
+                    android:layout_height="match_parent" />
+            </com.google.android.material.card.MaterialCardView>
+
             <TextView
                 android:id="@+id/label_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:layout_marginTop="16dp"
+                android:text="a"
+                android:textColor="#000000"
                 android:textSize="34sp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                android:layout_marginBottom="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="Detected Label" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="388dp"
+                android:layout_height="230dp"
+                android:layout_marginTop="344dp"
+                android:layout_marginEnd="8dp"
+                android:background="#F1F4EE"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view4"
+                android:layout_width="388dp"
+                android:layout_height="230dp"
+                android:layout_marginTop="828dp"
+                android:layout_marginEnd="4dp"
+                android:background="#F1F4EE"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="DuplicateIds" />
 
             <ImageView
                 android:id="@+id/denger_image"
-                android:layout_width="334dp"
-                android:layout_height="219dp"
+                android:layout_width="330dp"
+                android:layout_height="228dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="72dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.488"
+                app:layout_constraintHorizontal_bias="0.367"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
@@ -53,11 +96,12 @@
                 android:id="@+id/explain_text"
                 android:layout_width="335dp"
                 android:layout_height="186dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="52dp"
                 android:text="TextView"
+                android:textColor="#000000"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.477"
+                app:layout_constraintHorizontal_bias="0.431"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/denger_image"
                 tools:text="Advice based on detected label" />
@@ -66,11 +110,12 @@
                 android:id="@+id/advice_text"
                 android:layout_width="346dp"
                 android:layout_height="196dp"
-                android:layout_marginTop="420dp"
+                android:layout_marginTop="528dp"
                 android:text="TextView"
+                android:textColor="#000000"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.333"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/denger_image"
                 tools:text="Advice based on detected label" />
@@ -79,7 +124,7 @@
                 android:id="@+id/return_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:text="Homeに戻る"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -89,11 +134,49 @@
                 android:id="@+id/advice_image"
                 android:layout_width="316dp"
                 android:layout_height="181dp"
-                android:layout_marginTop="427dp"
+                android:layout_marginTop="516dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.349"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/denger_image"
                 tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="162dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="308dp"
+                android:layout_marginEnd="200dp"
+                android:text="＜説明＞"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="284dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="788dp"
+                android:layout_marginEnd="76dp"
+                android:text="＜改善のためのアドバイス＞"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/separator2"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_marginTop="520dp"
+                android:background="#B8B384"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/label_text_view" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
