@@ -6,8 +6,8 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" /> <!-- 通知読み上げ -->
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
@@ -22,14 +22,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Huck_app"
         tools:targetApi="31">
-
+        <activity
+            android:name=".Test_video"
+            android:exported="false" />
         <activity android:name=".BaseActivity" />
-
-
         <activity
             android:name=".ExplaintextActivity"
             android:exported="false" />
-
         <activity
             android:name=".ChildMode"
             android:exported="false" />
@@ -37,7 +36,6 @@
             android:name=".CameraMode"
             android:exported="false"
             android:theme="@style/Theme.Camera" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -27,6 +27,7 @@
         android:layout_marginTop="204dp"
         android:layout_marginEnd="288dp"
         android:text="通知ログ"
+        android:textColor="#3C3622"
         android:textColorHighlight="#3C3622"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -52,4 +53,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/kado" />
+
+    <Button
+        android:id="@+id/mimamori_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="84dp"
+        android:layout_marginBottom="492dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
