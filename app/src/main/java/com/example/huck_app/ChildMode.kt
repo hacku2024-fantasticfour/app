@@ -144,6 +144,7 @@ class ChildMode : AppCompatActivity(), Detector.DetectorListener {
     private fun getColorForLabel(label: String): Int {
         return when (label) {
             "bottle" -> Color.RED
+            "bowl" -> Color.YELLOW
             else -> Color.GREEN
         }
     }

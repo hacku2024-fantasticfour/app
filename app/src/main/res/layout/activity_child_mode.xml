@@ -5,43 +5,86 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#8BC34A"
+    android:background="#F8F6F7"
     tools:context=".ChildMode">
+
+    <!-- ComposeView は単独で使用 -->
+
+    <!-- 他のビューを直接 ConstraintLayout に追加 -->
 
     <androidx.compose.ui.platform.ComposeView
         android:id="@+id/compose_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <View
-        android:id="@+id/view_c1"
-        android:layout_width="414dp"
-        android:layout_height="236dp"
-        android:background="#D2E6BB"
+        android:layout_width="430dp"
+        android:layout_height="432dp"
+        android:background="#D7C3C3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <View
-        android:id="@+id/view_c2"
-        android:layout_width="411dp"
-        android:layout_height="112dp"
-        android:background="#D2E6BB"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/textView4"
+        app:layout_constraintVertical_bias="0.0" />
+
     <TextView
-        android:id="@+id/child_text"
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="160dp"
-        android:text="子供用"
-        android:textColor="#000000"
+        android:layout_marginTop="48dp"
+        android:text="検出結果"
+        android:textColor="#282424"
         android:textSize="34sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="192dp"
+        android:layout_marginBottom="172dp"
+        android:text="＜＜色の見方＞＞"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_yellow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="116dp"
+        android:layout_marginBottom="84dp"
+        android:text="黄色：注意　注意しましょう"
+        android:textColor="#857C29"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_red"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="116dp"
+        android:text="赤    ：危険　すぐに改善しましょう"
+        android:textColor="#FD0000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_green"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="276dp"
+        android:layout_marginBottom="52dp"
+        android:text="緑　：安全"
+        android:textColor="#4CAF50"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

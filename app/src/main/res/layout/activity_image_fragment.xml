@@ -6,13 +6,52 @@
     android:layout_height="match_parent"
     android:background="#CEADD7">
 
-    <Button
+    <ImageButton
         android:id="@+id/image_button"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:adjustViewBounds="true"
+        android:backgroundTint="#00FFFFFF"
+        android:padding="5dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.854"
+        app:srcCompat="@drawable/camera_img" />
+
+    <EditText
+        android:id="@+id/editTextTextMultiLine"
+        android:layout_width="306dp"
+        android:layout_height="109dp"
+        android:backgroundTint="#3E3232"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textMultiLine"
+        android:text="カメラボタンを押して、\n危険な場所を検知してください。"
+        android:textColor="#382F2F"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.68" />
+
+    <TextView
+        android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="136dp"
-        android:layout_marginBottom="212dp"
-        android:text="カメラを起動"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_marginTop="112dp"
+        android:text="～ 危険度チェック ～"
+        android:textColor="#403333"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
