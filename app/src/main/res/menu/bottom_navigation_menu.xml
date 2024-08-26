@@ -8,14 +8,14 @@
 
 
     <item
-        android:id="@+id/navi_video"
+        android:id="@+id/navi_log"
         android:icon="@drawable/ic_elder"
-        android:title="ビデオ"/>
+        android:title="通知ログ"/>
 
     <item
-        android:id="@+id/navi_image"
+        android:id="@+id/navi_video"
         android:icon="@drawable/ic_child"
-        android:title="画像"/>
+        android:title="見守り"/>
 
 
 

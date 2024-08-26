@@ -7,12 +7,12 @@
         android:name="com.example.huck_app.HomeFragment"
         android:label="Fragment1"/>
 
-    <fragment android:id="@+id/navi_image"
-        android:name="com.example.huck_app.ImageFragment"
-        android:label="Fragment2"/>
-
     <fragment android:id="@+id/navi_video"
         android:name="com.example.huck_app.VideoFragment"
+        android:label="Fragment2"/>
+
+    <fragment android:id="@+id/navi_log"
+        android:name="com.example.huck_app.LogFragment"
         android:label="Fragment3"/>
 
 </navigation>

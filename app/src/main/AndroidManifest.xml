@@ -23,8 +23,13 @@
         android:theme="@style/Theme.Huck_app"
         tools:targetApi="31">
         <activity
-            android:name=".Test_video"
+            android:name=".Setting"
             android:exported="false" />
+        <activity
+            android:name=".Detector_Page"
+            android:exported="false"
+            android:theme="@style/Theme.Huck_app" />
+        <activity android:name=".VideoMode" />
         <activity android:name=".BaseActivity" />
         <activity
             android:name=".ExplaintextActivity"
