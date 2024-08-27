@@ -10,14 +10,5 @@
 
     <style name="Theme.Camera" parent="Theme.AppCompat.Light.DarkActionBar" />
 
-    <!-- 新しいシンプルテーマ -->
-    <style name="SimpleTheme" parent="Theme.Material.Light.NoActionBar">
-        <item name="colorPrimary">@android:color/white</item>
-        <item name="colorPrimaryDark">@android:color/darker_gray</item>
-        <item name="colorAccent">@android:color/holo_blue_light</item>
-        <item name="android:textColorPrimary">@android:color/black</item>
-        <item name="android:windowBackground">@android:color/white</item>
-    </style>
-
 
 </resources>
