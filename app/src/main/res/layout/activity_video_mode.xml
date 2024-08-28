@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- PreviewView for camera preview -->
-    <androidx.camera.view.PreviewView
+    <!-- SurfaceView for camera preview -->
+    <SurfaceView
         android:id="@+id/video_view"
         android:layout_width="416dp"
         android:layout_height="336dp"

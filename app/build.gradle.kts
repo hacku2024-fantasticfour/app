@@ -76,6 +76,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+
     // tensorflow
     implementation(libs.tensorflow.lite)
     implementation(libs.tensorflow.lite.support)
@@ -87,4 +88,8 @@ dependencies {
     implementation (libs.androidx.camera.video)
     implementation (libs.androidx.camera.view )
     implementation (libs.androidx.camera.extensions)
+    implementation("com.google.android.exoplayer:exoplayer:2.18.0")
+
+
+
 }
