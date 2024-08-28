@@ -7,11 +7,44 @@
     android:layout_height="match_parent"
     tools:context=".Setting">
 
-    <RadioButton
-        android:id="@+id/Simple"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="シンプル"
-        tools:layout_editor_absoluteX="28dp"
-        tools:layout_editor_absoluteY="32dp" />
+    <!-- RadioGroupを追加してRadioButtonをグループ化 -->
+    <RadioGroup
+        android:id="@+id/themeGroup"
+        android:layout_width="136dp"
+        android:layout_height="168dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#D5FFFFFF"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/Yellow_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="黄色"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/Blue_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="青空"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/Purple_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="紫"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </RadioGroup>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

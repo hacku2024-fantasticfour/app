@@ -5,20 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/pink">
-
-    <TextView
-        android:id="@+id/textView_home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
-        android:text="～ ホーム ～"
-        android:textColor="#403333"
-        android:textSize="24sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:background="?attr/colorBackground"
+    tools:context=".HomeFragment">
 
     <Button
         android:id="@+id/ditector_button"
@@ -26,7 +14,9 @@
         android:layout_height="64dp"
         android:layout_marginTop="240dp"
         android:layout_marginEnd="112dp"
+        android:backgroundTint="?attr/colorPrimary"
         android:text="危険チェック"
+        android:textColor="?attr/colorOnPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,9 +26,10 @@
         android:layout_height="64dp"
         android:layout_marginTop="368dp"
         android:layout_marginEnd="112dp"
+        android:backgroundTint="?attr/colorPrimary"
         android:text="設定"
+        android:textColor="?attr/colorOnPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

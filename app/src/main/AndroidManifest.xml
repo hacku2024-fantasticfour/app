@@ -2,11 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- ハードウェア機能の使用宣言 -->
     <uses-feature android:name="android.hardware.camera.any" />
 
+    <!-- パーミッションの設定 -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" /> <!-- 通知読み上げ -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -20,37 +22,53 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Huck_app"
-        tools:targetApi="31">
+        android:theme="@style/Yellow_Theme"
+        android:enableOnBackInvokedCallback="true"
+        tools:targetApi="31"> <!-- ここは削除するか、`<application>`の属性に変更する -->
+
+        <!-- Setting アクティビティ: 個別テーマなし、アプリ全体のテーマを継承 -->
         <activity
             android:name=".Setting"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="unspecified" />
+
+        <!-- Detector_Page アクティビティ: 個別テーマなし、アプリ全体のテーマを継承 -->
         <activity
             android:name=".Detector_Page"
-            android:exported="false"
-            android:theme="@style/Theme.Huck_app" />
+            android:exported="false" />
+
+        <!-- VideoMode アクティビティ: 個別テーマなし -->
         <activity android:name=".VideoMode" />
+
+        <!-- BaseActivity アクティビティ: 個別テーマなし -->
         <activity android:name=".BaseActivity" />
+
         <activity
             android:name=".ExplaintextActivity"
             android:exported="false" />
+
+        <!-- ChildMode アクティビティ: 個別テーマなし -->
         <activity
             android:name=".ChildMode"
             android:exported="false" />
+
+        <!-- CameraMode アクティビティ: 個別テーマ Theme.Camera を使用 -->
         <activity
             android:name=".CameraMode"
             android:exported="false"
             android:theme="@style/Theme.Camera" />
+
+        <!-- MainActivity: アプリのランチャーアクティビティ、デフォルトテーマを使用 -->
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.Huck_app">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
+

@@ -7,10 +7,32 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="yellow">#FFFF00</color> <!-- 黄色を追加 -->
-    <color name="green">#00FF00</color> <!-- 緑 -->
-    <color name="pink">#FFC0CB</color> <!-- ピンク -->
-    <color name="ic_launcher_background">#00FF00</color> <!-- ランチャーバックグラウンドの色 -->
-    <color name="selected_color">#3cb381</color> <!-- 選択時は赤 -->
-    <color name="unselected_color">#2f4f4f</color> <!-- 非選択時は黒 -->
+    <color name="yellow">#FFFF00</color>
+    <color name="green">#00FF00</color>
+    <color name="pink">#FFC0CB</color>
+    <color name="ic_launcher_background">#00FF00</color>
+    <color name="selected_color">#4169e1</color>
+    <color name="unselected_color">#00008b</color>
+
+    <!-- カスタムテーマカラー -->
+    <color name="yellow_primary">#FFEB3B</color>
+    <color name="yellow_primary_dark">#FBC02D</color>
+    <color name="yellow_accent">#FFC107</color>
+    <color name="yellow_background">#FFFFE0</color>
+    <color name="yellow_switch_track">#FFD700</color>
+    <color name="yellow_switch_background">#FFF8DC</color>
+
+    <color name="blue_primary">#2196F3</color>
+    <color name="blue_primary_dark">#1976D2</color>
+    <color name="blue_accent">#03A9F4</color>
+    <color name="blue_background">#E3F2FD</color>
+    <color name="blue_switch_track">#00BCD4</color>
+    <color name="blue_switch_background">#E0F7FA</color>
+
+    <color name="purple_primary">#9C27B0</color>
+    <color name="purple_primary_dark">#7B1FA2</color>
+    <color name="purple_accent">#E040FB</color>
+    <color name="purple_background">#F3E5F5</color>
+    <color name="purple_switch_track">#BA68C8</color>
+    <color name="purple_switch_background">#F8E8F8</color>
 </resources>

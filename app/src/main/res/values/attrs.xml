@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- カスタム属性の定義 -->
+    <attr name="colorBackground" format="color" />
+    <attr name="colorOnBackground" format="color" />
+    <attr name="colorSwitchBackground" format="color" />
+    <attr name="colorSwitchTrack" format="color" />
+    <attr name="colorDivider" format="color" />
+</resources>

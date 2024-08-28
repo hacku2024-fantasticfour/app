@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/pink"
+    android:background="?attr/colorBackground"
     tools:context=".VideoFragment">
 
     <TextView
@@ -13,8 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="112dp"
-        android:text="～ ビデオ ～"
-        android:textColor="#403333"
+        android:text="～ビデオモード～"
+        android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,13 +22,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/video_start"
-        android:layout_width="158dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="504dp"
-        android:layout_marginEnd="124dp"
-        android:text="Start Video"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:id="@+id/video_start"
+    android:layout_width="158dp"
+    android:layout_height="64dp"
+    android:layout_marginTop="504dp"
+    android:layout_marginEnd="124dp"
+    android:text="見守りビデオを開始"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
