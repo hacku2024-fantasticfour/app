@@ -31,7 +31,12 @@ class Background(context: Context, workerParams: WorkerParameters) :
         tts = TextToSpeech(applicationContext, this)
 
         // モデルのロード
-        interpreter = Interpreter(loadModelFile("yolov8s_float32.tflite"))
+        try {
+            interpreter = Interpreter(loadModelFile("yolov8s_float32.tflite"))
+        } catch (e: Exception) {
+            Log.e("Background", "Error loading model file", e)
+            return Result.failure()
+        }
 
         // 映像ストリームの監視
         monitorStream()
@@ -52,11 +57,18 @@ class Background(context: Context, workerParams: WorkerParameters) :
         try {
             val url = URL("http://192.168.1.129:8080/camera.mjpg")
             val connection = url.openConnection() as HttpURLConnection
+            connection.connectTimeout = 10000  // 10秒の接続タイムアウト
+            connection.readTimeout = 10000     // 10秒の読み込みタイムアウト
             connection.doInput = true
             connection.connect()
 
             val inputStream = connection.inputStream
             val bitmap = BitmapFactory.decodeStream(inputStream)
+
+            if (bitmap == null) {
+                Log.e("BottleDetectionWorker", "Failed to decode bitmap from input stream")
+                return
+            }
 
             // YOLOによる物体検出
             val detectedObjects = runObjectDetection(bitmap)
@@ -67,7 +79,7 @@ class Background(context: Context, workerParams: WorkerParameters) :
             }
 
         } catch (e: Exception) {
-            Log.e("BottleDetectionWorker", "Error monitoring stream: ${e.message}")
+            Log.e("BottleDetectionWorker", "Error monitoring stream", e)
         }
     }
 
@@ -90,6 +102,8 @@ class Background(context: Context, workerParams: WorkerParameters) :
         // テキスト読み上げ
         if (isTtsInitialized) {
             tts.speak("危険が検出されました", TextToSpeech.QUEUE_FLUSH, null, null)
+        } else {
+            Log.w("BottleDetectionWorker", "TextToSpeech is not initialized yet.")
         }
     }
 
