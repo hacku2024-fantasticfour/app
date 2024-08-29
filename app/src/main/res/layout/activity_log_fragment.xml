@@ -1,39 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CCCC9F">
 
-    <!-- ImageView to display the detected object's image -->
-    <ImageView
-        android:id="@+id/detected_image_view"
-        android:layout_width="371dp"
-        android:layout_height="359dp"
-        android:layout_margin="16dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/detection_result_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
 
-    <!-- TextView to display the detection result -->
-    <TextView
-        android:id="@+id/detection_result_text"
+    <Switch
+        android:id="@+id/notification_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Detection result will appear here"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="212dp"
+        android:layout_marginEnd="56dp"
+        android:background="#002E2A2A"
+        android:backgroundTint="#383232"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:text="通知"
+        android:textColor="#372F2F"
+        android:thumbTint="@color/switch_thumb_color"
+        android:trackTint="#696969"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="210dp"
+        android:layout_marginEnd="248dp"
+        android:text="通知ログ"
+        android:textColor="#3C3622"
+        android:textColorHighlight="#3C3622"
+        android:textSize="29dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view5"
+        android:layout_width="401dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="256dp"
+        android:layout_marginEnd="4dp"
+        android:background="#9A3C3622"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="184dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="272dp"
+        android:layout_marginEnd="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/kado" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="112dp"
+        android:text="～ 見守りモード ～"
+        android:textColor="#2A2626"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detected_image_view"
-        tools:text="Bottle detected!" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

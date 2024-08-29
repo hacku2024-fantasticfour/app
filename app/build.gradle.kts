@@ -87,4 +87,5 @@ dependencies {
     implementation (libs.androidx.camera.video)
     implementation (libs.androidx.camera.view )
     implementation (libs.androidx.camera.extensions)
+    implementation("androidx.work:work-runtime-ktx:2.7.1")
 }

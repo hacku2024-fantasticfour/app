@@ -5,6 +5,9 @@ import android.animation.AnimatorInflater
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.WorkRequest
 import com.example.huck_app.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -13,6 +16,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // OneTimeWorkRequestを作成してBackgroundクラスのWorkerをスケジュール
+        val backgroundWorkRequest: WorkRequest = OneTimeWorkRequestBuilder<Background>().build()
+
+        // WorkManagerを使ってWorkRequestをスケジュール
+        WorkManager.getInstance(this).enqueue(backgroundWorkRequest)
+
         binding = ActivityMainBinding.inflate(layoutInflater).apply {
             setContentView(this.root)
         }
