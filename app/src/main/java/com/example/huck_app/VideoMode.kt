@@ -5,15 +5,26 @@ import androidx.appcompat.app.AppCompatActivity
 
 import android.annotation.SuppressLint
 import android.view.KeyEvent
-import android.view.Window
-import android.webkit.WebResourceError
-import android.webkit.WebResourceRequest
-import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.http.GET
+
 class VideoMode : AppCompatActivity() {
+
+    interface DetectionApi {
+        @GET("/labels")
+        fun getLabels(): Call<LabelResponse>
+    }
+
+    data class LabelResponse(
+        val detected_labels: List<String>,
+        val error: String? = null
+    )
 
     private inner class MyWebViewClient : WebViewClient() {
         override fun shouldOverrideKeyEvent(view: WebView?, event: KeyEvent?): Boolean {
