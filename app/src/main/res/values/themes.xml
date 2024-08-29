@@ -2,13 +2,47 @@
 <resources>
 
     <style name="Theme.Huck_app" parent="android:Theme.Material.Light.NoActionBar" />
-    <!-- Base application theme. -->
     <style name="Base.Theme.Huck_app" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
-
     <style name="Theme.Camera" parent="Theme.AppCompat.Light.DarkActionBar" />
 
+    <style name="Yellow_Theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/yellow_primary</item>
+        <item name="colorPrimaryDark">@color/yellow_primary_dark</item>
+        <item name="colorAccent">@color/yellow_accent</item>
+        <item name="android:windowBackground">@drawable/background</item>
+        <item name="colorBackground">@color/yellow_background</item>
+        <item name="colorSwitchTrack">@color/yellow_switch_track</item>
+        <item name="colorSwitchBackground">@color/yellow_switch_background</item>
+        <item name="colorOnBackground">@color/black</item>
+        <item name="android:statusBarColor">@color/yellow_primary_dark</item>
+        <item name="android:navigationBarColor">@color/yellow_primary</item>
+    </style>
+
+    <style name="Blue_Theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/blue_primary</item>
+        <item name="colorPrimaryDark">@color/blue_primary_dark</item>
+        <item name="colorAccent">@color/blue_accent</item>
+        <item name="android:windowBackground">@drawable/background2</item>
+        <item name="colorBackground">@color/blue_background</item>
+        <item name="colorSwitchTrack">@color/blue_switch_track</item>
+        <item name="colorSwitchBackground">@color/blue_switch_background</item>
+        <item name="colorOnBackground">@color/white</item>
+        <item name="android:statusBarColor">@color/blue_primary_dark</item>
+        <item name="android:navigationBarColor">@color/blue_primary</item>
+    </style>
+
+    <style name="Purple_Theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/purple_primary</item>
+        <item name="colorPrimaryDark">@color/purple_primary_dark</item>
+        <item name="colorAccent">@color/purple_accent</item>
+        <item name="android:windowBackground">@drawable/background3</item>
+        <item name="colorBackground">@color/purple_background</item>
+        <item name="colorSwitchTrack">@color/purple_switch_track</item>
+        <item name="colorSwitchBackground">@color/purple_switch_background</item>
+        <item name="colorOnBackground">@color/white</item>
+        <item name="android:statusBarColor">@color/purple_primary_dark</item>
+        <item name="android:navigationBarColor">@color/purple_primary</item>
+    </style>
 
 </resources>

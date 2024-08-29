@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E6E3C8"
+    android:background="?attr/colorBackground"
     tools:context=".ExplaintextActivity">
 
     <!-- ScrollViewでスクロール可能にする -->
