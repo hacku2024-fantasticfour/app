@@ -4,12 +4,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-
 import android.annotation.SuppressLint
 import android.view.KeyEvent
 import android.webkit.WebView
 import android.webkit.WebViewClient
-
+import android.widget.FrameLayout
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -18,7 +17,6 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import android.content.pm.PackageManager
 import android.widget.Toast
-
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,7 +39,6 @@ class VideoMode : AppCompatActivity() {
     private lateinit var webView: WebView
     private val handler = Handler(Looper.getMainLooper())
     private lateinit var fetchLabelsRunnable: Runnable
-
     private val CHANNEL_ID = "label_detection_channel"
     private val NOTIFICATION_ID = 1
 
@@ -65,23 +62,21 @@ class VideoMode : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video_mode)
-
         createNotificationChannel()
 
-        // Android 13以上の場合、通知パーミッションのチェックとリクエスト
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 1)
             }
         }
 
-        webView = WebView(this)
-        val webSettings = webView.settings
-        webSettings.javaScriptEnabled = true
-        webSettings.supportMultipleWindows()
-        webView.webViewClient = MyWebViewClient()
-        setContentView(webView)
+        val container = findViewById<FrameLayout>(R.id.webview_container)
+        webView = WebView(this).apply {
+            settings.javaScriptEnabled = true
+            webViewClient = MyWebViewClient()
+        }
 
+        container.addView(webView)
         webView.loadUrl("http://192.168.1.129:8080/camera.mjpg")
 
         fetchLabelsRunnable = object : Runnable {
@@ -156,17 +151,17 @@ class VideoMode : AppCompatActivity() {
 
     private fun showNotification(message: String) {
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.icon) // 通知アイコンを設定（リソースにアイコンが必要）
+            .setSmallIcon(R.drawable.icon) // 通知アイコンを設定
             .setContentTitle("Label Detection")
             .setContentText(message)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
         try {
-            with(NotificationManagerCompat.from(this)) {
-                notify(NOTIFICATION_ID, builder.build())
-            }
+            val notificationManager = NotificationManagerCompat.from(this@VideoMode)
+            notificationManager.notify(NOTIFICATION_ID, builder.build())
         } catch (e: SecurityException) {
-            Toast.makeText(this, "通知を表示出来ません：権限がありません", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@VideoMode, "通知を表示できません：権限がありません", Toast.LENGTH_SHORT).show()
         }
     }
+
 }
