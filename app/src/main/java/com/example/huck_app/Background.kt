@@ -39,9 +39,11 @@ class Background(context: Context, workerParams: WorkerParameters) :
         }
 
         // 映像ストリームの監視
-        monitorStream()
-
-        return Result.success()
+        return if (monitorStream()) {
+            Result.success()
+        } else {
+            Result.failure()
+        }
     }
 
     private fun loadModelFile(modelFileName: String): MappedByteBuffer {
@@ -53,8 +55,8 @@ class Background(context: Context, workerParams: WorkerParameters) :
         return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength)
     }
 
-    private fun monitorStream() {
-        try {
+    private fun monitorStream(): Boolean {
+        return try {
             val url = URL("http://192.168.1.129:8080/camera.mjpg")
             val connection = url.openConnection() as HttpURLConnection
             connection.connectTimeout = 10000  // 10秒の接続タイムアウト
@@ -67,19 +69,21 @@ class Background(context: Context, workerParams: WorkerParameters) :
 
             if (bitmap == null) {
                 Log.e("BottleDetectionWorker", "Failed to decode bitmap from input stream")
-                return
-            }
+                false
+            } else {
+                // YOLOによる物体検出
+                val detectedObjects = runObjectDetection(bitmap)
 
-            // YOLOによる物体検出
-            val detectedObjects = runObjectDetection(bitmap)
-
-            // 「bottle」が検出されたか確認
-            if (detectedObjects.contains("bottle")) {
-                captureAndNotify(bitmap)
+                // 「bottle」が検出されたか確認
+                if (detectedObjects.contains("bottle")) {
+                    captureAndNotify(bitmap)
+                }
+                true
             }
 
         } catch (e: Exception) {
             Log.e("BottleDetectionWorker", "Error monitoring stream", e)
+            false
         }
     }
 
