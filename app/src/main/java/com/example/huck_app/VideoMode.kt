@@ -1,6 +1,8 @@
 package com.example.huck_app
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 
 import android.annotation.SuppressLint
@@ -29,6 +31,8 @@ class VideoMode : AppCompatActivity() {
     )
 
     private lateinit var webView: WebView
+    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var fetchLabelsRunnable: Runnable
 
     private inner class MyWebViewClient : WebViewClient() {
         override fun shouldOverrideKeyEvent(view: WebView?, event: KeyEvent?): Boolean {
@@ -60,12 +64,23 @@ class VideoMode : AppCompatActivity() {
 
         webView.loadUrl("http://192.168.1.129:8080/camera.mjpg")
 
-        fetchLabels()
+        fetchLabelsRunnable = object : Runnable {
+            override fun run() {
+                fetchLabels()
+                handler.postDelayed(this, 5000)
+            }
+        }
+        handler.post(fetchLabelsRunnable)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(fetchLabelsRunnable)
     }
 
     private fun fetchLabels() {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.1.129:8080/labels")
+            .baseUrl("http://192.168.1.129:8080/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -76,18 +91,16 @@ class VideoMode : AppCompatActivity() {
             override fun onResponse(call: Call<LabelResponse>, response: Response<LabelResponse>) {
                 if (response.isSuccessful) {
                     val labels = response.body()?.detected_labels
-                    println(1)
+                    println(labels)
                     labels?.let {
                         Toast.makeText(this@VideoMode, "Detected labels: $it", Toast.LENGTH_LONG).show()
                     }
                 } else {
-                    println(2)
                     Toast.makeText(this@VideoMode, "Failed to fetch labels: ${response.message()}", Toast.LENGTH_LONG).show()
                 }
             }
 
             override fun onFailure(call: Call<LabelResponse>, t: Throwable) {
-                println(3)
                 Toast.makeText(this@VideoMode, "Request failed: ${t.message}", Toast.LENGTH_LONG).show()
             }
         })
