@@ -6,6 +6,7 @@ import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 
 import android.annotation.SuppressLint
+import android.speech.tts.TextToSpeech
 import android.view.KeyEvent
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -25,8 +26,9 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import java.util.Locale
 
-class VideoMode : AppCompatActivity() {
+class VideoMode : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     interface DetectionApi {
         @GET("/labels")
@@ -44,6 +46,8 @@ class VideoMode : AppCompatActivity() {
 
     private val CHANNEL_ID = "label_detection_channel"
     private val NOTIFICATION_ID = 1
+
+    private lateinit var textToSpeech: TextToSpeech
 
     private inner class MyWebViewClient : WebViewClient() {
         override fun shouldOverrideKeyEvent(view: WebView?, event: KeyEvent?): Boolean {
@@ -74,6 +78,9 @@ class VideoMode : AppCompatActivity() {
                 requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 1)
             }
         }
+
+        // TextToSpeechの初期化
+        textToSpeech = TextToSpeech(this, this)
 
         webView = WebView(this)
         val webSettings = webView.settings
@@ -107,6 +114,22 @@ class VideoMode : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         handler.removeCallbacks(fetchLabelsRunnable)
+        // TextToSpeechのリソースを解放
+        if (::textToSpeech.isInitialized) {
+            textToSpeech.stop()
+            textToSpeech.shutdown()
+        }
+    }
+
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            val result = textToSpeech.setLanguage(Locale.JAPANESE)
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Toast.makeText(this, "TextToSpeechの初期化に失敗しました", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            Toast.makeText(this, "TextToSpeechの初期化に失敗しました", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun createNotificationChannel() {
@@ -139,6 +162,7 @@ class VideoMode : AppCompatActivity() {
                     labels?.let {
                         try {
                             showNotification("危険が検知されました： $it")
+                            speak("危険が検知されました")
                         } catch (e: SecurityException) {
                             Toast.makeText(this@VideoMode, "通知権限が与えられていません", Toast.LENGTH_SHORT).show()
                         }
@@ -167,6 +191,12 @@ class VideoMode : AppCompatActivity() {
             }
         } catch (e: SecurityException) {
             Toast.makeText(this, "通知を表示出来ません：権限がありません", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun speak(message: String) {
+        if (::textToSpeech.isInitialized) {
+            textToSpeech.speak(message, TextToSpeech.QUEUE_FLUSH, null, null)
         }
     }
 }
