@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
@@ -27,90 +28,76 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ChildMode : AppCompatActivity(), Detector.DetectorListener {
+class ChildMode : AppCompatActivity() {
     private var image by mutableStateOf<Bitmap?>(null)
-    private lateinit var detector: Detector
-    private val MODEL_PATH = "yolov8s_float32.tflite"
-    private val LABELS_PATH = "labels.txt"
+    private lateinit var detector1: Detector
+    private lateinit var detector2: Detector
+    private val MODEL_PATH1 = "code_best_float32.tflite"
+    private val MODEL_PATH2 = "corner_best_float32.tflite"
+    private val CODE_LABELS_PATH = "code_labels.txt"
+    private val CORNER_LABELS_PATH = "corner_labels.txt"
     private val processingScope = CoroutineScope(Dispatchers.IO)
-    private var boundingBoxes: List<BoundingBox> = emptyList()
+    private var boundingBoxes: MutableList<BoundingBox> = mutableListOf()
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_child_mode)
+        setupPermissions()
+        setupView()
+        setupDetectors()
+    }
 
+    private fun setupPermissions() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 1001)
         }
+    }
 
+    private fun setupView() {
         val composeView = findViewById<ComposeView>(R.id.compose_view)
         composeView.setContent {
             Huck_appTheme {
                 ChildImage(bitmap = image)
             }
         }
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
-        val imageUri = intent.getStringExtra("image_uri")
-        if (imageUri != null) {
-            val inputStream = contentResolver.openInputStream(Uri.parse(imageUri))
-            image = BitmapFactory.decodeStream(inputStream)
-            inputStream?.close()
-
-            detector = Detector(baseContext, MODEL_PATH, LABELS_PATH, this)
-            detector.setup()
-            image?.let {
-                detector.detect(it)
-            }
-        }
-
         composeView.setOnTouchListener { view, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
-                val x = event.x * (image?.width ?: 1) / view.width
-                val y = event.y * (image?.height ?: 1) / view.height
-                boundingBoxes.firstOrNull { box ->
-                    val rect = RectF(
-                        box.x1 * (image?.width ?: 1),
-                        box.y1 * (image?.height ?: 1),
-                        box.x2 * (image?.width ?: 1),
-                        box.y2 * (image?.height ?: 1)
-                    )
-                    rect.contains(x, y)
-                }?.let { box ->
-                    Log.i("BoundingBoxTapped", "Tapped on: ${box.clsName}")
-
-                    // 正しくタップされたバウンディングボックスのラベルを渡して画面遷移
-                    navigateToExplaintextActivity(box.clsName)
-                }
+                handleTouchOnImage(view, event)
             }
             true
         }
     }
 
-    override fun onDetect(boundingBoxes: List<BoundingBox>) {
-        this.boundingBoxes = boundingBoxes
+    private fun setupDetectors() {
+        val imageUri = intent.getStringExtra("image_uri") ?: return
+        val inputStream = contentResolver.openInputStream(Uri.parse(imageUri))
+        image = BitmapFactory.decodeStream(inputStream)
+        inputStream?.close()
+
+        detector1 = Detector(baseContext, MODEL_PATH1, CODE_LABELS_PATH, this::handleDetection)
+        detector2 = Detector(baseContext, MODEL_PATH2, CORNER_LABELS_PATH, this::handleDetection)
+        detector1.setup()
+        detector2.setup()
+
+        image?.let { img ->
+            detector1.detect(img)
+            detector2.detect(img)
+        }
+    }
+
+    private fun handleDetection(boundingBoxes: List<BoundingBox>) {
+        this.boundingBoxes.addAll(boundingBoxes)
+        updateImageWithBoxes()
+    }
+
+    private fun updateImageWithBoxes() {
         image?.let { bmp ->
             processingScope.launch {
                 val updatedBitmap = drawBoundingBoxes(bmp, boundingBoxes)
                 image = updatedBitmap
             }
         }
-
-        // バウンディングボックスが検出されたときの動作
-        if (boundingBoxes.isNotEmpty()) {
-            Log.i("Detection", "Objects detected: ${boundingBoxes.size}")
-        }
-    }
-
-    override fun onEmptyDetect() {
-        Log.i("empty", "empty")
     }
 
     private fun drawBoundingBoxes(bitmap: Bitmap, boxes: List<BoundingBox>): Bitmap {
@@ -126,7 +113,7 @@ class ChildMode : AppCompatActivity(), Detector.DetectorListener {
             typeface = Typeface.DEFAULT_BOLD
         }
 
-        for (box in boxes) {
+        boxes.forEach { box ->
             paint.color = getColorForLabel(box.clsName)
             val rect = RectF(
                 box.x1 * mutableBitmap.width,
@@ -137,15 +124,32 @@ class ChildMode : AppCompatActivity(), Detector.DetectorListener {
             canvas.drawRect(rect, paint)
             canvas.drawText(box.clsName, rect.left, rect.bottom, textPaint)
         }
-
         return mutableBitmap
     }
 
     private fun getColorForLabel(label: String): Int {
         return when (label) {
-            "bottle" -> Color.RED
-            "bowl" -> Color.YELLOW
-            else -> Color.GREEN
+            "コード" -> Color.RED
+            "角" -> Color.RED
+            else -> Color.GRAY // Ensure that there's an else condition to cover all possible inputs
+        }
+    }
+
+
+    private fun handleTouchOnImage(view: View, event: MotionEvent) {
+        val x = event.x * (image?.width ?: 1) / view.width
+        val y = event.y * (image?.height ?: 1) / view.height
+        boundingBoxes.firstOrNull { box ->
+            val rect = RectF(
+                box.x1 * (image?.width ?: 1),
+                box.y1 * (image?.height ?: 1),
+                box.x2 * (image?.width ?: 1),
+                box.y2 * (image?.height ?: 1)
+            )
+            rect.contains(x, y)
+        }?.let { box ->
+            Log.i("BoundingBoxTapped", "Tapped on: ${box.clsName}")
+            navigateToExplaintextActivity(box.clsName)
         }
     }
 
