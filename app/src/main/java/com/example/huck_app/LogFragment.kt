@@ -11,10 +11,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Switch
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.example.huck_app.com.example.huck_app.LogFragmentViewModel
 
 class LogFragment : Fragment() {
@@ -53,6 +56,16 @@ class LogFragment : Fragment() {
         // LocalBroadcastManagerを使用してブロードキャストを登録
         LocalBroadcastManager.getInstance(requireContext())
             .registerReceiver(broadcastReceiver, IntentFilter("com.example.huck_app.BOTTLE_DETECTED"))
+
+        // スイッチを取得
+        val startSwitch: Switch = view.findViewById(R.id.action_switch)
+        startSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                // Backgroundワーカーを開始
+                val backgroundWorkRequest = OneTimeWorkRequestBuilder<Background>().build()
+                WorkManager.getInstance(requireContext()).enqueue(backgroundWorkRequest)
+            }
+        }
     }
 
     override fun onDestroyView() {
