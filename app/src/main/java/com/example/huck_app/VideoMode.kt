@@ -65,7 +65,7 @@ class VideoMode : AppCompatActivity() {
 
     private fun fetchLabels() {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.1.129:8080/")
+            .baseUrl("http://192.168.1.129:8080/labels")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -76,15 +76,18 @@ class VideoMode : AppCompatActivity() {
             override fun onResponse(call: Call<LabelResponse>, response: Response<LabelResponse>) {
                 if (response.isSuccessful) {
                     val labels = response.body()?.detected_labels
+                    println(1)
                     labels?.let {
                         Toast.makeText(this@VideoMode, "Detected labels: $it", Toast.LENGTH_LONG).show()
                     }
                 } else {
+                    println(2)
                     Toast.makeText(this@VideoMode, "Failed to fetch labels: ${response.message()}", Toast.LENGTH_LONG).show()
                 }
             }
 
             override fun onFailure(call: Call<LabelResponse>, t: Throwable) {
+                println(3)
                 Toast.makeText(this@VideoMode, "Request failed: ${t.message}", Toast.LENGTH_LONG).show()
             }
         })
