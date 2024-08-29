@@ -12,6 +12,8 @@ import android.widget.Toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
 class VideoMode : AppCompatActivity() {
@@ -25,6 +27,8 @@ class VideoMode : AppCompatActivity() {
         val detected_labels: List<String>,
         val error: String? = null
     )
+
+    private lateinit var webView: WebView
 
     private inner class MyWebViewClient : WebViewClient() {
         override fun shouldOverrideKeyEvent(view: WebView?, event: KeyEvent?): Boolean {
@@ -55,5 +59,34 @@ class VideoMode : AppCompatActivity() {
         setContentView(webView)
 
         webView.loadUrl("http://192.168.1.129:8080/camera.mjpg")
+
+        fetchLabels()
+    }
+
+    private fun fetchLabels() {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://192.168.1.129:8080/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val detectionApi = retrofit.create(DetectionApi::class.java)
+
+        val call = detectionApi.getLabels()
+        call.enqueue(object : Callback<LabelResponse> {
+            override fun onResponse(call: Call<LabelResponse>, response: Response<LabelResponse>) {
+                if (response.isSuccessful) {
+                    val labels = response.body()?.detected_labels
+                    labels?.let {
+                        Toast.makeText(this@VideoMode, "Detected labels: $it", Toast.LENGTH_LONG).show()
+                    }
+                } else {
+                    Toast.makeText(this@VideoMode, "Failed to fetch labels: ${response.message()}", Toast.LENGTH_LONG).show()
+                }
+            }
+
+            override fun onFailure(call: Call<LabelResponse>, t: Throwable) {
+                Toast.makeText(this@VideoMode, "Request failed: ${t.message}", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 }
