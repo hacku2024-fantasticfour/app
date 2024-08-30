@@ -90,7 +90,7 @@ class LogMode : AppCompatActivity(), TextToSpeech.OnInitListener {
                     labels?.let {
                         if (it.contains("microrobot")) {
                             val message = "危険が検出されました"
-                            showNotification("人を検出", message)
+                            showNotification("小物を検出", message)
                             speakOut(message)
                         }
                     }
