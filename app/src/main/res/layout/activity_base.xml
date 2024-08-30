@@ -26,10 +26,4 @@
         app:menu="@menu/bottom_navigation_menu" />
 
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="#FFFFFF" />
-
 </FrameLayout>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="-2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- log1 から log10 までの ImageView を左寄りに配置 -->
+            <ImageView
+                android:id="@+id/log1"
+                android:layout_width="252dp"
+                android:layout_height="165dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                tools:src="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/log2"
+                android:layout_width="252dp"
+                android:layout_height="165dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                tools:src="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/log3"
+                android:layout_width="252dp"
+                android:layout_height="165dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                tools:src="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/log4"
+                android:layout_width="252dp"
+                android:layout_height="165dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                tools:src="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/log5"
+                android:layout_width="252dp"
+                android:layout_height="165dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                tools:src="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/log6"
+                android:layout_width="252dp"
+                android:layout_height="165dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                tools:src="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/log7"
+                android:layout_width="252dp"
+                android:layout_height="165dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                tools:src="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/log8"
+                android:layout_width="252dp"
+                android:layout_height="165dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                tools:src="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/log9"
+                android:layout_width="252dp"
+                android:layout_height="165dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                tools:src="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/log10"
+                android:layout_width="252dp"
+                android:layout_height="165dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                tools:src="@tools:sample/avatars" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
