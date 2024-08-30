@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-
 import android.annotation.SuppressLint
 import android.speech.tts.TextToSpeech
 import android.view.KeyEvent
 import android.webkit.WebView
 import android.webkit.WebViewClient
-
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -19,7 +17,6 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import android.content.pm.PackageManager
 import android.widget.Toast
-
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,6 +45,7 @@ class VideoMode : AppCompatActivity(), TextToSpeech.OnInitListener {
     private val NOTIFICATION_ID = 1
 
     private lateinit var textToSpeech: TextToSpeech
+    private var isTtsReady: Boolean = false
 
     private inner class MyWebViewClient : WebViewClient() {
         override fun shouldOverrideKeyEvent(view: WebView?, event: KeyEvent?): Boolean {
@@ -68,45 +66,33 @@ class VideoMode : AppCompatActivity(), TextToSpeech.OnInitListener {
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_video_mode)
 
-        createNotificationChannel()
-
-        // Android 13以上の場合、通知パーミッションのチェックとリクエスト
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 1)
+        webView = WebView(this).apply {
+            settings.apply {
+                javaScriptEnabled = true
+                supportMultipleWindows()
             }
+            webViewClient = MyWebViewClient()
         }
-
-        // TextToSpeechの初期化
-        textToSpeech = TextToSpeech(this, this)
-
-        webView = WebView(this)
-        val webSettings = webView.settings
-        webSettings.javaScriptEnabled = true
-        webSettings.supportMultipleWindows()
-        webView.webViewClient = MyWebViewClient()
         setContentView(webView)
-
         webView.loadUrl("http://192.168.1.129:8080/camera.mjpg")
 
-        fetchLabelsRunnable = object : Runnable {
-            override fun run() {
-                fetchLabels()
-                handler.postDelayed(this, 5000)
-            }
+        createNotificationChannel()
+        handlePermissions()
+
+        textToSpeech = TextToSpeech(this, this)
+
+        fetchLabelsRunnable = Runnable {
+            fetchLabels()
+            handler.postDelayed(fetchLabelsRunnable, 5000)  // 次の実行をスケジュール
         }
         handler.post(fetchLabelsRunnable)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 1) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "通知権限が付与されました", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "通知権限がありません", Toast.LENGTH_SHORT).show()
+    private fun handlePermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 1)
             }
         }
     }
@@ -114,7 +100,6 @@ class VideoMode : AppCompatActivity(), TextToSpeech.OnInitListener {
     override fun onDestroy() {
         super.onDestroy()
         handler.removeCallbacks(fetchLabelsRunnable)
-        // TextToSpeechのリソースを解放
         if (::textToSpeech.isInitialized) {
             textToSpeech.stop()
             textToSpeech.shutdown()
@@ -125,12 +110,15 @@ class VideoMode : AppCompatActivity(), TextToSpeech.OnInitListener {
         if (status == TextToSpeech.SUCCESS) {
             val result = textToSpeech.setLanguage(Locale.JAPANESE)
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                Toast.makeText(this, "TextToSpeechの初期化に失敗しました", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "サポートされていない言語です。", Toast.LENGTH_SHORT).show()
+            } else {
+                isTtsReady = true  // TTSが準備完了
             }
         } else {
-            Toast.makeText(this, "TextToSpeechの初期化に失敗しました", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "TextToSpeechの初期化に失敗しました。", Toast.LENGTH_SHORT).show()
         }
     }
+
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -140,9 +128,7 @@ class VideoMode : AppCompatActivity(), TextToSpeech.OnInitListener {
             val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
                 description = descriptionText
             }
-            val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
+            getSystemService(NotificationManager::class.java)?.createNotificationChannel(channel)
         }
     }
 
@@ -153,50 +139,42 @@ class VideoMode : AppCompatActivity(), TextToSpeech.OnInitListener {
             .build()
 
         val detectionApi = retrofit.create(DetectionApi::class.java)
-
-        val call = detectionApi.getLabels()
-        call.enqueue(object : Callback<LabelResponse> {
+        detectionApi.getLabels().enqueue(object : Callback<LabelResponse> {
             override fun onResponse(call: Call<LabelResponse>, response: Response<LabelResponse>) {
                 if (response.isSuccessful) {
-                    val labels = response.body()?.detectedLabels
-                    labels?.let {
-                        try {
-                            showNotification("危険が検知されました： $it")
-                            speak("危険が検知されました")
-                        } catch (e: SecurityException) {
-                            Toast.makeText(this@VideoMode, "通知権限が与えられていません", Toast.LENGTH_SHORT).show()
-                        }
+                    response.body()?.detectedLabels?.let {
+                        showNotification("危険が検知されました： $it")
+                        speak("危険が検知されました")
                     }
                 } else {
-                    showNotification("Failed to fetch labels: ${response.message()}")
+                    showNotification("ラベル検出がありません。: ${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<LabelResponse>, t: Throwable) {
-                showNotification("Request failed: ${t.message}")
+                val errorMessage = "リクエストの失敗: ${t.message}"
+                showNotification(errorMessage)
+                speak(errorMessage)
             }
         })
     }
 
     private fun showNotification(message: String) {
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.icon) // 通知アイコンを設定（リソースにアイコンが必要）
+            .setSmallIcon(R.drawable.icon) // 通知アイコンを設定
             .setContentTitle("Label Detection")
             .setContentText(message)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
-        try {
-            with(NotificationManagerCompat.from(this)) {
-                notify(NOTIFICATION_ID, builder.build())
-            }
-        } catch (e: SecurityException) {
-            Toast.makeText(this, "通知を表示出来ません：権限がありません", Toast.LENGTH_SHORT).show()
-        }
+        NotificationManagerCompat.from(this).notify(NOTIFICATION_ID, builder.build())
     }
 
     private fun speak(message: String) {
-        if (::textToSpeech.isInitialized) {
+        if (isTtsReady && ::textToSpeech.isInitialized) {
             textToSpeech.speak(message, TextToSpeech.QUEUE_FLUSH, null, null)
+        } else {
+            Toast.makeText(this, "TextToSpeechがまだ準備ができていません。", Toast.LENGTH_SHORT).show()
         }
     }
+
 }
