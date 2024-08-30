@@ -23,7 +23,7 @@
         android:background="#FFFFFF"
         app:itemIconTint="@color/navi_item_color_state"
         app:itemTextColor="@color/navi_item_color_state"
-        app:menu="@menu/bottom_navigation_menu"/>
+        app:menu="@menu/bottom_navigation_menu" />
 
 
     <View

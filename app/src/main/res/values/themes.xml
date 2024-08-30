@@ -10,39 +10,43 @@
         <item name="colorPrimary">@color/yellow_primary</item>
         <item name="colorPrimaryDark">@color/yellow_primary_dark</item>
         <item name="colorAccent">@color/yellow_accent</item>
-        <item name="android:windowBackground">@drawable/background</item>
+        <item name="android:windowBackground">@drawable/yellow_theme</item>
         <item name="colorBackground">@color/yellow_background</item>
         <item name="colorSwitchTrack">@color/yellow_switch_track</item>
         <item name="colorSwitchBackground">@color/yellow_switch_background</item>
         <item name="colorOnBackground">@color/black</item>
         <item name="android:statusBarColor">@color/yellow_primary_dark</item>
         <item name="android:navigationBarColor">@color/yellow_primary</item>
+        <item name="customSrc">@drawable/yellow_button</item>
+
     </style>
 
     <style name="Blue_Theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/blue_primary</item>
         <item name="colorPrimaryDark">@color/blue_primary_dark</item>
         <item name="colorAccent">@color/blue_accent</item>
-        <item name="android:windowBackground">@drawable/background2</item>
+        <item name="android:windowBackground">@drawable/blue_theme</item>
         <item name="colorBackground">@color/blue_background</item>
         <item name="colorSwitchTrack">@color/blue_switch_track</item>
         <item name="colorSwitchBackground">@color/blue_switch_background</item>
         <item name="colorOnBackground">@color/white</item>
         <item name="android:statusBarColor">@color/blue_primary_dark</item>
         <item name="android:navigationBarColor">@color/blue_primary</item>
+        <item name="customSrc">@drawable/blue_button</item>
     </style>
 
     <style name="Purple_Theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/purple_primary</item>
         <item name="colorPrimaryDark">@color/purple_primary_dark</item>
         <item name="colorAccent">@color/purple_accent</item>
-        <item name="android:windowBackground">@drawable/background3</item>
+        <item name="android:windowBackground">@drawable/purple_theme</item>
         <item name="colorBackground">@color/purple_background</item>
         <item name="colorSwitchTrack">@color/purple_switch_track</item>
         <item name="colorSwitchBackground">@color/purple_switch_background</item>
         <item name="colorOnBackground">@color/white</item>
         <item name="android:statusBarColor">@color/purple_primary_dark</item>
         <item name="android:navigationBarColor">@color/purple_primary</item>
+        <item name="customSrc">@drawable/purple_button</item>
     </style>
 
 </resources>

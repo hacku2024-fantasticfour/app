@@ -42,7 +42,7 @@ class Notification(private val context: Context, private val textToSpeech: TextT
 
             // 通知のビルダーを作成
             val notificationBuilder = NotificationCompat.Builder(context, "important_notifications")
-                .setSmallIcon(R.drawable.notification_icon)  // 通知のアイコンを適切なリソースに変更
+                .setSmallIcon(R.drawable.icon)  // 通知のアイコンを適切なリソースに変更
                 .setContentTitle(title)
                 .setContentText(content)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)

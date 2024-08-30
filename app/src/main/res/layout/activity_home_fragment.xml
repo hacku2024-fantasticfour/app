@@ -1,33 +1,82 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?attr/colorBackground">
+    android:layout_height="match_parent">
 
-    <Button
+    <!-- Detector Button -->
+
+    <!-- Text on Detector Button -->
+
+    <ImageButton
         android:id="@+id/ditector_button"
-        android:layout_width="158dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="240dp"
-        android:layout_marginEnd="112dp"
+        android:layout_width="342dp"
+        android:layout_height="173dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="236dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="#00020202"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.8"
+        app:srcCompat="@drawable/blue_button_sub" />
+
+    <TextView
+        android:id="@+id/ditector_button_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="危険チェック"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/ditector_button"
+        app:layout_constraintEnd_toEndOf="@id/ditector_button"
+        app:layout_constraintStart_toStartOf="@id/ditector_button"
+        app:layout_constraintTop_toTopOf="@id/ditector_button" />
 
-    <Button
+    <!-- Setting Button -->
+
+    <!-- Text on Setting Button -->
+
+    <ImageButton
         android:id="@+id/setting_button"
-        android:layout_width="158dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="368dp"
-        android:layout_marginEnd="112dp"
-        android:textColor="#FFFFFF"
-        android:text="設定"
+        android:layout_width="435dp"
+        android:layout_height="189dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#00020202"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ditector_button"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.8"
+        app:srcCompat="@drawable/blue_button_sub" />
 
+    <TextView
+        android:id="@+id/setting_button_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="設定"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/setting_button"
+        app:layout_constraintEnd_toEndOf="@id/setting_button"
+        app:layout_constraintStart_toStartOf="@id/setting_button"
+        app:layout_constraintTop_toTopOf="@id/setting_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

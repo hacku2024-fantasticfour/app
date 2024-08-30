@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 
 class HomeFragment : Fragment() {
@@ -13,15 +13,15 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.activity_home_fragment, container, false)
 
-
-        val childButton = view.findViewById<Button>(R.id.ditector_button)
+        val childButton = view.findViewById<ImageButton>(R.id.ditector_button)
         childButton?.setOnClickListener {
             val intent = Intent(activity, Detector_Page::class.java)
             intent.putExtra("BUTTON_ID", R.id.ditector_button)
             startActivity(intent)
         }
-        val SettingButton = view.findViewById<Button>(R.id.setting_button)
-        SettingButton?.setOnClickListener {
+
+        val settingButton = view.findViewById<ImageButton>(R.id.setting_button)
+        settingButton?.setOnClickListener {
             val intent = Intent(activity, Setting::class.java)
             startActivity(intent)
         }
