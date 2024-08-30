@@ -1,22 +1,20 @@
 package com.example.huck_app
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.appcompat.app.AppCompatActivity
-import android.annotation.SuppressLint
 import android.speech.tts.TextToSpeech
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+
+import android.annotation.SuppressLint
 import android.view.KeyEvent
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
-import android.os.Build
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import android.content.pm.PackageManager
-import android.widget.Toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,19 +31,15 @@ class VideoMode : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     data class LabelResponse(
-        val detectedLabels: List<String>,
+        val detected_labels: List<String>,
         val error: String? = null
     )
 
     private lateinit var webView: WebView
     private val handler = Handler(Looper.getMainLooper())
     private lateinit var fetchLabelsRunnable: Runnable
-
-    private val CHANNEL_ID = "label_detection_channel"
-    private val NOTIFICATION_ID = 1
-
-    private lateinit var textToSpeech: TextToSpeech
-    private var isTtsReady: Boolean = false
+    private val channelId = "label_detection_channel"
+    private lateinit var tts: TextToSpeech
 
     private inner class MyWebViewClient : WebViewClient() {
         override fun shouldOverrideKeyEvent(view: WebView?, event: KeyEvent?): Boolean {
@@ -59,122 +53,122 @@ class VideoMode : AppCompatActivity(), TextToSpeech.OnInitListener {
             failingUrl: String
         ) {
             val message = "error: ($errorCode) $description"
-            Toast.makeText(this@VideoMode, message, Toast.LENGTH_LONG).show()
+            showNotification("WebView Error", message)
         }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        webView = WebView(this).apply {
-            settings.apply {
-                javaScriptEnabled = true
-                supportMultipleWindows()
-            }
-            webViewClient = MyWebViewClient()
-        }
-        setContentView(webView)
-        webView.loadUrl("http://192.168.1.129:8080/camera.mjpg")
+        setContentView(R.layout.activity_video_mode)
 
         createNotificationChannel()
-        handlePermissions()
 
-        textToSpeech = TextToSpeech(this, this)
+        // TextToSpeechの初期化
+        tts = TextToSpeech(this, this)
 
-        fetchLabelsRunnable = Runnable {
-            fetchLabels()
-            handler.postDelayed(fetchLabelsRunnable, 5000)  // 次の実行をスケジュール
-        }
-        handler.post(fetchLabelsRunnable)
-    }
+        val webView = WebView(this)
+        val webSettings = webView.settings
+        webSettings.javaScriptEnabled = true
+        webSettings.supportMultipleWindows()
+        webView.webViewClient = MyWebViewClient()
+        setContentView(webView)
 
-    private fun handlePermissions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 1)
+        webView.loadUrl("http://192.168.75.131:8080/camera.mjpg")
+
+        fetchLabelsRunnable = object : Runnable {
+            override fun run() {
+                fetchLabels()
+                handler.postDelayed(this, 5000)
             }
         }
+        handler.post(fetchLabelsRunnable)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         handler.removeCallbacks(fetchLabelsRunnable)
-        if (::textToSpeech.isInitialized) {
-            textToSpeech.stop()
-            textToSpeech.shutdown()
-        }
+        // TextToSpeechのリソース解放
+        tts.stop()
+        tts.shutdown()
     }
 
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
-            val result = textToSpeech.setLanguage(Locale.JAPANESE)
+            val result = tts.setLanguage(Locale.JAPANESE)
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                Toast.makeText(this, "サポートされていない言語です。", Toast.LENGTH_SHORT).show()
-            } else {
-                isTtsReady = true  // TTSが準備完了
+                showNotification("TTS Error", "この言語はサポートされていません。")
             }
         } else {
-            Toast.makeText(this, "TextToSpeechの初期化に失敗しました。", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-
-    private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "物体検知"
-            val descriptionText = "ラベル検出の通知"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
-                description = descriptionText
-            }
-            getSystemService(NotificationManager::class.java)?.createNotificationChannel(channel)
+            showNotification("TTS Error", "Text-to-Speechの初期化に失敗しました。")
         }
     }
 
     private fun fetchLabels() {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.1.129:8080/")
+            .baseUrl("http://192.168.75.131:8080/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         val detectionApi = retrofit.create(DetectionApi::class.java)
-        detectionApi.getLabels().enqueue(object : Callback<LabelResponse> {
+
+        val call = detectionApi.getLabels()
+        call.enqueue(object : Callback<LabelResponse> {
             override fun onResponse(call: Call<LabelResponse>, response: Response<LabelResponse>) {
                 if (response.isSuccessful) {
-                    response.body()?.detectedLabels?.let {
-                        showNotification("危険が検知されました： $it")
-                        speak("危険が検知されました")
+                    val labels = response.body()?.detected_labels
+                    labels?.let {
+                        // "person" がリストに含まれているかチェック
+                        if (it.contains("person")) {
+                            val message = "危険が検出されました"
+                            showNotification("人を検出", message)
+                            speakOut(message)  // 読み上げを追加
+                        }
                     }
                 } else {
-                    showNotification("ラベル検出がありません。: ${response.message()}")
+                    val message = "Failed to fetch labels: ${response.message()}"
+                    showNotification("Fetch Failed", message)
+                    speakOut(message)  // 読み上げを追加
                 }
             }
 
             override fun onFailure(call: Call<LabelResponse>, t: Throwable) {
-                val errorMessage = "リクエストの失敗: ${t.message}"
-                showNotification(errorMessage)
-                speak(errorMessage)
+                val message = "リクエストが失敗しました: ${t.message}"
+                showNotification("リクエストの失敗", message)
+                speakOut(message)  // 読み上げを追加
             }
         })
     }
 
-    private fun showNotification(message: String) {
-        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.icon) // 通知アイコンを設定
-            .setContentTitle("Label Detection")
-            .setContentText(message)
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-
-        NotificationManagerCompat.from(this).notify(NOTIFICATION_ID, builder.build())
-    }
-
-    private fun speak(message: String) {
-        if (isTtsReady && ::textToSpeech.isInitialized) {
-            textToSpeech.speak(message, TextToSpeech.QUEUE_FLUSH, null, null)
-        } else {
-            Toast.makeText(this, "TextToSpeechがまだ準備ができていません。", Toast.LENGTH_SHORT).show()
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "危険の検知"
+            val descriptionText = "危険検出の通知"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(channelId, name, importance).apply {
+                description = descriptionText
+            }
+            val notificationManager: NotificationManager =
+                getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
         }
     }
 
+    private fun showNotification(title: String, message: String) {
+        val builder = NotificationCompat.Builder(this, channelId)
+            .setSmallIcon(R.drawable.ic_launcher_foreground) // Replace with your app's icon
+            .setContentTitle(title)
+            .setContentText(message)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(this)) {
+            notify(System.currentTimeMillis().toInt(), builder.build())
+        }
+    }
+
+    private fun speakOut(message: String) {
+        if (::tts.isInitialized) {
+            tts.speak(message, TextToSpeech.QUEUE_FLUSH, null, null)
+        }
+    }
 }

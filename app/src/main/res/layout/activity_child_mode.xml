@@ -8,9 +8,7 @@
     android:background="#F8F6F7"
     tools:context=".ChildMode">
 
-    <!-- ComposeView は単独で使用 -->
 
-    <!-- 他のビューを直接 ConstraintLayout に追加 -->
 
     <androidx.compose.ui.platform.ComposeView
         android:id="@+id/compose_view"
