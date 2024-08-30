@@ -21,7 +21,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic"/>
 
     <ImageButton
         android:id="@+id/ditector_button"
@@ -53,7 +54,8 @@
         app:layout_constraintBottom_toBottomOf="@id/ditector_button"
         app:layout_constraintEnd_toEndOf="@id/ditector_button"
         app:layout_constraintStart_toStartOf="@id/ditector_button"
-        app:layout_constraintTop_toTopOf="@id/ditector_button" />
+        app:layout_constraintTop_toTopOf="@id/ditector_button"
+        tools:srcCompat="@tools:sample/backgrounds/scenic"/>
 
     <!-- Setting Button -->
 
@@ -91,6 +93,7 @@
         app:layout_constraintBottom_toBottomOf="@id/setting_button"
         app:layout_constraintEnd_toEndOf="@id/setting_button"
         app:layout_constraintStart_toStartOf="@id/setting_button"
-        app:layout_constraintTop_toTopOf="@id/setting_button" />
+        app:layout_constraintTop_toTopOf="@id/setting_button"
+        tools:srcCompat="@tools:sample/backgrounds/scenic"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

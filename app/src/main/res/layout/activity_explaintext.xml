@@ -57,12 +57,13 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Detected Label" />
+                tools:text="Detected Label"
+                tools:srcCompat="@tools:sample/backgrounds/scenic"/>
 
             <View
                 android:id="@+id/view3"
-                android:layout_width="388dp"
-                android:layout_height="230dp"
+                android:layout_width="379dp"
+                android:layout_height="361dp"
                 android:layout_marginTop="344dp"
                 android:layout_marginEnd="8dp"
                 android:background="#F1F4EE"
@@ -71,9 +72,9 @@
 
             <View
                 android:id="@+id/view4"
-                android:layout_width="388dp"
-                android:layout_height="230dp"
-                android:layout_marginTop="828dp"
+                android:layout_width="386dp"
+                android:layout_height="263dp"
+                android:layout_marginTop="936dp"
                 android:layout_marginEnd="4dp"
                 android:background="#F1F4EE"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -82,8 +83,8 @@
 
             <ImageView
                 android:id="@+id/denger_image"
-                android:layout_width="330dp"
-                android:layout_height="228dp"
+                android:layout_width="328dp"
+                android:layout_height="247dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="72dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -94,28 +95,30 @@
 
             <TextView
                 android:id="@+id/explain_text"
-                android:layout_width="335dp"
-                android:layout_height="186dp"
-                android:layout_marginTop="52dp"
+                android:layout_width="347dp"
+                android:layout_height="291dp"
+                android:layout_marginTop="36dp"
+                android:fontFamily="@font/mplus_rounded1c_extra_bold"
                 android:text="TextView"
                 android:textColor="#000000"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.431"
+                app:layout_constraintHorizontal_bias="0.241"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/denger_image"
                 tools:text="Advice based on detected label" />
 
             <TextView
                 android:id="@+id/advice_text"
-                android:layout_width="346dp"
-                android:layout_height="196dp"
-                android:layout_marginTop="528dp"
+                android:layout_width="340dp"
+                android:layout_height="253dp"
+                android:layout_marginTop="624dp"
+                android:fontFamily="@font/mplus_rounded1c_extra_bold"
                 android:text="TextView"
                 android:textColor="#000000"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.333"
+                app:layout_constraintHorizontal_bias="0.384"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/denger_image"
                 tools:text="Advice based on detected label" />
@@ -128,15 +131,16 @@
                 android:text="Homeに戻る"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/advice_text" />
+                app:layout_constraintTop_toBottomOf="@id/advice_text"
+                tools:srcCompat="@tools:sample/backgrounds/scenic"/>
 
             <ImageView
                 android:id="@+id/advice_image"
                 android:layout_width="316dp"
                 android:layout_height="181dp"
-                android:layout_marginTop="516dp"
+                android:layout_marginTop="632dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.349"
+                app:layout_constraintHorizontal_bias="0.492"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/denger_image"
                 tools:srcCompat="@tools:sample/avatars" />
@@ -152,30 +156,21 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:fontFamily="@font/mplus_rounded1c_extra_bold"/>
 
             <TextView
                 android:layout_width="284dp"
                 android:layout_height="38dp"
-                android:layout_marginTop="788dp"
+                android:layout_marginTop="884dp"
                 android:layout_marginEnd="76dp"
+                android:fontFamily="@font/mplus_rounded1c_extra_bold"
                 android:text="＜改善のためのアドバイス＞"
                 android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/separator2"
-                android:layout_width="0dp"
-                android:layout_height="4dp"
-                android:layout_marginTop="520dp"
-                android:background="#B8B384"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/label_text_view" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

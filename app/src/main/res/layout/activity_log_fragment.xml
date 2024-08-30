@@ -18,7 +18,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic"/>
 
     <ImageButton
         android:id="@+id/log_start"
@@ -42,7 +43,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/log_start"
         app:layout_constraintEnd_toEndOf="@+id/log_start"
         app:layout_constraintStart_toStartOf="@+id/log_start"
-        app:layout_constraintTop_toTopOf="@+id/log_start" />
+        app:layout_constraintTop_toTopOf="@+id/log_start"
+        tools:srcCompat="@tools:sample/backgrounds/scenic"/>
 
     <TextView
         android:id="@+id/textView1p"
@@ -56,6 +58,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

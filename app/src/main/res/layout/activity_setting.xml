@@ -27,7 +27,8 @@
             android:textAllCaps="true"
             android:textColor="#000000"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:srcCompat="@tools:sample/backgrounds/scenic"/>
 
         <RadioButton
             android:id="@+id/Blue_theme"
@@ -37,7 +38,8 @@
             android:text="青空"
             android:textColor="#000000"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:srcCompat="@tools:sample/backgrounds/scenic"/>
 
         <RadioButton
             android:id="@+id/Purple_theme"
@@ -47,7 +49,8 @@
             android:text="紫"
             android:textColor="#000000"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:srcCompat="@tools:sample/backgrounds/scenic"/>
 
     </RadioGroup>
 
