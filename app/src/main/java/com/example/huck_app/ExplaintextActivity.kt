@@ -83,6 +83,7 @@ class ExplaintextActivity : AppCompatActivity() {
     private fun setImageResourceForLabel(label: String?, imageView: ImageView) {
         val imageResId = when (label) {
             "角" -> R.drawable.kado
+            "コード" -> R.drawable.code
             else -> R.drawable.kado     // デフォルトの画像リソースID
         }
 
@@ -92,6 +93,7 @@ class ExplaintextActivity : AppCompatActivity() {
     private fun setImageResourceForLabel2(label: String?, imageView: ImageView) {
         val imageResId = when (label) {
             "角" -> R.drawable.kado2 // ボトルの画像リソースID
+            "コード" -> R.drawable.code2
             else -> R.drawable.kado     // デフォルトの画像リソースID
         }
 

@@ -66,7 +66,6 @@ class VideoMode : AppCompatActivity() {
         fetchLabelsRunnable = object : Runnable {
             override fun run() {
                 fetchLabels()
-                handler.postDelayed(this, 5000) // 5秒ごとに実行
             }
         }
         handler.post(fetchLabelsRunnable)
@@ -99,10 +98,12 @@ class VideoMode : AppCompatActivity() {
                 } else {
                     // ラベルの取得に失敗した場合の処理（必要に応じて）
                 }
+                handler.postDelayed(fetchLabelsRunnable, 5000)
             }
 
             override fun onFailure(call: Call<LabelResponse>, t: Throwable) {
                 // リクエストが失敗した場合の処理（必要に応じて）
+                handler.postDelayed(fetchLabelsRunnable, 5000)
             }
         })
     }

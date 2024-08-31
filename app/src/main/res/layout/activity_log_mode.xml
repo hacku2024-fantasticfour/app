@@ -1,105 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="-2dp">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <!-- Log 1 -->
+        <ImageView
+            android:id="@+id/log_image1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/log_text1"
+            tools:srcCompat="@tools:sample/avatars" />
 
-            <!-- log1 から log10 までの ImageView を左寄りに配置 -->
-            <ImageView
-                android:id="@+id/log1"
-                android:layout_width="252dp"
-                android:layout_height="165dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                tools:src="@tools:sample/avatars" />
+        <TextView
+            android:id="@+id/log_text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text=""
+            app:layout_constraintTop_toTopOf="@+id/log_image1"
+            app:layout_constraintStart_toEndOf="@+id/log_image1"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            <ImageView
-                android:id="@+id/log2"
-                android:layout_width="252dp"
-                android:layout_height="165dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                tools:src="@tools:sample/avatars" />
+        <!-- Log 2 -->
+        <ImageView
+            android:id="@+id/log_image2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/log_image1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/log_text2"
+            tools:srcCompat="@tools:sample/avatars" />
 
-            <ImageView
-                android:id="@+id/log3"
-                android:layout_width="252dp"
-                android:layout_height="165dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                tools:src="@tools:sample/avatars" />
+        <TextView
+            android:id="@+id/log_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            app:layout_constraintTop_toTopOf="@+id/log_image2"
+            app:layout_constraintStart_toEndOf="@+id/log_image2"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            <ImageView
-                android:id="@+id/log4"
-                android:layout_width="252dp"
-                android:layout_height="165dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                tools:src="@tools:sample/avatars" />
+        <!-- Log 3 -->
+        <ImageView
+            android:id="@+id/log_image3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/log_image2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/log_text3"
+            tools:srcCompat="@tools:sample/avatars" />
 
-            <ImageView
-                android:id="@+id/log5"
-                android:layout_width="252dp"
-                android:layout_height="165dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                tools:src="@tools:sample/avatars" />
+        <TextView
+            android:id="@+id/log_text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            app:layout_constraintTop_toTopOf="@+id/log_image3"
+            app:layout_constraintStart_toEndOf="@+id/log_image3"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            <ImageView
-                android:id="@+id/log6"
-                android:layout_width="252dp"
-                android:layout_height="165dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                tools:src="@tools:sample/avatars" />
+        <!-- Log 4 -->
+        <ImageView
+            android:id="@+id/log_image4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/log_image3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/log_text4"
+            tools:srcCompat="@tools:sample/avatars" />
 
-            <ImageView
-                android:id="@+id/log7"
-                android:layout_width="252dp"
-                android:layout_height="165dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                tools:src="@tools:sample/avatars" />
+        <TextView
+            android:id="@+id/log_text4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            app:layout_constraintTop_toTopOf="@+id/log_image4"
+            app:layout_constraintStart_toEndOf="@+id/log_image4"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            <ImageView
-                android:id="@+id/log8"
-                android:layout_width="252dp"
-                android:layout_height="165dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                tools:src="@tools:sample/avatars" />
+        <!-- Log 5 -->
+        <ImageView
+            android:id="@+id/log_image5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/log_image4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/log_text5"
+            tools:srcCompat="@tools:sample/avatars" />
 
-            <ImageView
-                android:id="@+id/log9"
-                android:layout_width="252dp"
-                android:layout_height="165dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                tools:src="@tools:sample/avatars" />
+        <TextView
+            android:id="@+id/log_text5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            app:layout_constraintTop_toTopOf="@+id/log_image5"
+            app:layout_constraintStart_toEndOf="@+id/log_image5"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            <ImageView
-                android:id="@+id/log10"
-                android:layout_width="252dp"
-                android:layout_height="165dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                tools:src="@tools:sample/avatars" />
+        <!-- Log 6 -->
+        <ImageView
+            android:id="@+id/log_image6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/log_image5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/log_text6"
+            tools:srcCompat="@tools:sample/avatars" />
 
-        </LinearLayout>
-    </ScrollView>
+        <TextView
+            android:id="@+id/log_text6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            app:layout_constraintTop_toTopOf="@+id/log_image6"
+            app:layout_constraintStart_toEndOf="@+id/log_image6"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Log 7 -->
+        <ImageView
+            android:id="@+id/log_image7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/log_image6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/log_text7"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/log_text7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            app:layout_constraintTop_toTopOf="@+id/log_image7"
+            app:layout_constraintStart_toEndOf="@+id/log_image7"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Log 8 -->
+        <ImageView
+            android:id="@+id/log_image8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/log_image7"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/log_text8"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/log_text8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            app:layout_constraintTop_toTopOf="@+id/log_image8"
+            app:layout_constraintStart_toEndOf="@+id/log_image8"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Log 9 -->
+        <ImageView
+            android:id="@+id/log_image9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/log_image8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/log_text9"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/log_text9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            app:layout_constraintTop_toTopOf="@+id/log_image9"
+            app:layout_constraintStart_toEndOf="@+id/log_image9"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Log 10 -->
+        <ImageView
+            android:id="@+id/log_image10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/log_image9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/log_text10"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/log_text10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            app:layout_constraintTop_toTopOf="@+id/log_image10"
+            app:layout_constraintStart_toEndOf="@+id/log_image10"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
