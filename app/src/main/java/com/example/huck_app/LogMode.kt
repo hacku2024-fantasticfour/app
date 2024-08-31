@@ -258,3 +258,4 @@ class LogMode : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
     }
 }
+
